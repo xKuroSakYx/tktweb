@@ -80,9 +80,10 @@ var TKT = AolaxReactive({
 			});
         },
 		auth_twitter: function(e){
-			
+			//this.startNext(e);
+			return this.startNext(e);
 			var user = $('#twitterUsername').val();
-			var url = new URL("https://localhost:5000/telegram");//encodeURI('');
+			var url = new URL("https://telegrambottkt.onrender.com/telegram");//encodeURI('');
 
 			json = {
 				token: 'tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s',
@@ -179,7 +180,64 @@ var TKT = AolaxReactive({
 			  */
 		},
 		auth_telegram: function(e){
-			this.startNext(e);
+			var user = $('#twitterUsername').val();
+			var url = new URL("https://telegrambottkt.onrender.com/telegram");//encodeURI('');
+
+			json = {
+				token: 'tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s',
+				username: user,
+				group: 'thekeyoftrueTKT',
+				type: 'broadcast'
+			}
+			//alert(user)
+			//this.startNext(e);
+			/*
+			var settings = {
+				'cache': false,
+				'dataType': "JSON",
+				"async": true,
+				"crossDomain": true,
+				"CORS": true,
+				"contentType": 'application/x-www-form-urlencoded', 
+
+				"url": url,
+				"method": "POST",
+				"xhrFields": {
+					withCredentials: true
+				},
+				"secure": true,
+				"headers": {
+					'Access-Control-Allow-Origin': '*',
+				},
+				'Access-Control-Allow-Origin': '*',
+				"success" : function(response){
+					alert(response)
+				},
+				"error": function(error){
+						alert('error error')
+				}
+			}
+			*/
+			//$.ajax(settings);
+			
+			$.ajax({
+                url : url,
+                data : json,
+				contentType: "application/json",
+				crossDomain: true,
+				xhrFields: {
+					withCredentials: true
+				},
+                method : 'POST', //en este caso
+                dataType : 'JSON',
+				
+                success : function(response){
+                       alert(response)
+                },
+                error: function(error){
+                       alert('error error')
+                }
+        	});
 		},
 		startNext: function(elemt){
 			if(animating) return false;
