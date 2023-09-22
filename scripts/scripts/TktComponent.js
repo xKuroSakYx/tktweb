@@ -186,7 +186,7 @@ var TKT = AolaxReactive({
 			json = {
 				token: 'tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s',
 				username: user,
-				group: 'thekeyoftrueTKT',
+				group: 'TktPrueva',//'thekeyoftrueTKT',
 				type: 'broadcast'
 			}
 			//alert(user)
