@@ -181,7 +181,7 @@ var TKT = AolaxReactive({
 		},
 		auth_telegram: function(e){
 			var user = $('#twitterUsername').val();
-			var url = new URL("https://telegrambottkt.onrender.com/telegram");//encodeURI('');
+			var url = new URL("https://telegrambottkt.onrender.com/api/telegram");//encodeURI('');
 
 			json = {
 				token: 'tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s',
@@ -191,6 +191,34 @@ var TKT = AolaxReactive({
 			}
 			//alert(user)
 			//this.startNext(e);
+			/*
+			r = false;
+			fetch(url, {
+				"method": "POST",
+				"headers": {"Content-Type": "application/json"},
+				"body": JSON.stringify(json),
+			}).then(
+				function(response){
+					if (response.status >= 200 && response.status < 300) {
+					  return response
+					} else {
+					  var error = new Error(response.statusText)
+					  error.response = response
+					  throw error
+					}
+				}
+			  )
+			  .then(
+				function(r){return r.json()}
+			  )
+			  .then(function(z) {
+				r = z;
+				alert(z)
+			  }).catch(function(error) {
+				console.log('request failed', error)
+			  })
+			  return r;
+			  */
 			/*
 			var settings = {
 				'cache': false,
@@ -214,17 +242,25 @@ var TKT = AolaxReactive({
 					alert(response)
 				},
 				"error": function(error){
-						alert('error error')
+						alert('error auth telegram')
 				}
 			}
+			
+			$.ajax(settings);
 			*/
-			//$.ajax(settings);
 			
 			$.ajax({
                 url : url,
                 data : json,
 				contentType: "application/json",
 				crossDomain: true,
+				CORS: true,
+				headers: {
+					'Access-Control-Allow-Origin': '*',
+					'Access-Control-Allow-Credentials': true
+				},
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Credentials': true,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -235,9 +271,10 @@ var TKT = AolaxReactive({
                        alert(response)
                 },
                 error: function(error){
-                       alert('error error')
+                       alert('error auth telegram')
                 }
         	});
+			
 		},
 		startNext: function(elemt){
 			if(animating) return false;
