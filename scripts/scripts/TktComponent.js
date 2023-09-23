@@ -180,101 +180,44 @@ var TKT = AolaxReactive({
 			  */
 		},
 		auth_telegram: function(e){
+			that = this;
 			var user = $('#twitterUsername').val();
 			var url = new URL("https://telegrambottkt.onrender.com/api/telegram");//encodeURI('');
-
+			//var url2 = new URL("https://telegrambottkt.onrender.com/api/telegram?token=tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s&user=Davier&group=TktPrueva&type=broadcast")
+			//'thekeyoftrueTKT',
+			
 			json = {
-				token: 'tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s',
+				token: "tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s",
 				username: user,
-				group: 'TktPrueva',//'thekeyoftrueTKT',
-				type: 'broadcast'
+				group: "TktPrueva",
+				type: "broadcast"
 			}
-			//alert(user)
-			//this.startNext(e);
-			/*
-			r = false;
-			fetch(url, {
-				"method": "POST",
-				"headers": {"Content-Type": "application/json"},
-				"body": JSON.stringify(json),
-			}).then(
-				function(response){
-					if (response.status >= 200 && response.status < 300) {
-					  return response
-					} else {
-					  var error = new Error(response.statusText)
-					  error.response = response
-					  throw error
-					}
-				}
-			  )
-			  .then(
-				function(r){return r.json()}
-			  )
-			  .then(function(z) {
-				r = z;
-				alert(z)
-			  }).catch(function(error) {
-				console.log('request failed', error)
-			  })
-			  return r;
-			  */
-			/*
-			var settings = {
-				'cache': false,
-				'dataType': "JSON",
-				"async": true,
-				"crossDomain": true,
-				"CORS": true,
-				"contentType": 'application/x-www-form-urlencoded', 
 
-				"url": url,
-				"method": "POST",
-				"xhrFields": {
-					withCredentials: true
-				},
-				"secure": true,
-				"headers": {
-					'Access-Control-Allow-Origin': '*',
-				},
-				'Access-Control-Allow-Origin': '*',
-				"success" : function(response){
-					alert(response)
-				},
-				"error": function(error){
-						alert('error auth telegram')
-				}
-			}
-			
-			$.ajax(settings);
-			*/
-			
 			$.ajax({
                 url : url,
-                data : json,
+                data : JSON.stringify(json),
 				contentType: "application/json",
-				crossDomain: true,
-				CORS: true,
-				headers: {
-					'Access-Control-Allow-Origin': '*',
-					'Access-Control-Allow-Credentials': true
-				},
-				'Access-Control-Allow-Origin': '*',
-				'Access-Control-Allow-Credentials': true,
-				xhrFields: {
-					withCredentials: true
-				},
-                method : 'POST', //en este caso
-                dataType : 'JSON',
-				
-                success : function(response){
-                       alert(response)
+				method: "POST",
+				success : function(r){
+						console.log(r.response)
+						if(r.response == 'user_ok'){
+							function aa(name, value, days){
+								var d = new Date();
+								d.setTime(d.getTime() + 24*60*60*1000*days);
+								document.cookie = name + "=" + value + ";path=/; secure = true; expires=" + d.toGMTString() +"; max-age=" + d.toGMTString();
+							}("username", r, 360);
+							that.startNext(e);
+						}else if(r.response == 'user_exist'){
+							swal("Error", "The user '"+user.toUpperCase()+"' is not a 'The Key of True - TKT Oficial' channel subscriber, visit https://t.me/thekeyoftrueTKT", "error");
+							//swal("Error", "The user '"+user.toUpperCase()+"' already received the tokens, please use another account", "error");
+						}else if(r.response == 'user_not_registry'){
+							swal("Error", "The user '"+user.toUpperCase()+"' is not a 'The Key of True - TKT Oficial' channel subscriber, visit https://t.me/thekeyoftrueTKT", "error");
+						}//The Key of True - TKT Oficial
                 },
                 error: function(error){
                        alert('error auth telegram')
                 }
         	});
-			
 		},
 		startNext: function(elemt){
 			if(animating) return false;
