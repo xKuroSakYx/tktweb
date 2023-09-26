@@ -10,7 +10,7 @@ var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
 
 var TKT = AolaxReactive({
-    el: "#msform",
+    el: "#multi_step_sign_up",
     data: {
         linetype: "-",
         separador: '---',
@@ -18,6 +18,8 @@ var TKT = AolaxReactive({
     },
     methods: {
         init: function(){
+			this.validatePaso();
+
             $(document).ready(function() {
 				// $('.theme-loader').addClass('loaded');
 				$('.theme-loader').animate({
@@ -78,10 +80,17 @@ var TKT = AolaxReactive({
 					easing: 'easeInOutBack'
 				});
 			});
+			_url_ = new URL(window.location.href)
+			_url_.searchParams.forEach((valor, parametro) => {
+				if(parametro == 'ref'){
+					this.setCookie('reflink', parseInt(valor), 365)
+				}
+			});
         },
 		auth_twitter: function(e){
+			window.location.href = "http://127.0.0.1:5000";
 			//this.startNext(e);
-			return this.startNext(e);
+			//return this.startNext(e);
 			var user = $('#twitterUsername').val();
 			var url = new URL("https://telegrambottkt.onrender.com/telegram");//encodeURI('');
 
@@ -181,7 +190,55 @@ var TKT = AolaxReactive({
 		},
 		auth_telegram: function(e){
 			that = this;
-			var user = $('#twitterUsername').val();
+			var user = $('#telegramUsername').val();
+			var url = new URL("https://telegrambottkt.onrender.com/api/telegram");//encodeURI('');
+			//var url2 = new URL("https://telegrambottkt.onrender.com/api/telegram?token=tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s&user=Davier&group=TktPrueva&type=broadcast")
+			//'thekeyoftrueTKT',
+			
+			json = {
+				token: "tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s",
+				username: user,
+				group: "thekeyoftrueTKT",
+				type: "broadcast"
+			}
+			this.loaderShow();
+			$.ajax({
+                url : url,
+                data : JSON.stringify(json),
+				contentType: "application/json",
+				method: "POST",
+				success : function(r){
+					
+					console.log(r.response)
+					if(r.response == 'user_ok'){
+						that.setCookie("telegramuser", JSON.stringify(r), 360);
+						that.loaderHideOk();
+						window.setTimeout(function(){that.startNext(e);}, 1000)
+						
+					}
+					else if(r.response == 'user_exist'){
+						that.loaderHide();
+						window.setTimeout(function(){
+							swal("Error", "The user '"+user.toUpperCase()+"' already received the tokens, please use another account", "error");
+						}, 400)
+					}
+					else if(r.response == 'user_not_registry'){
+						that.loaderHide();
+						window.setTimeout(function(){
+							swal("Error", "The user '"+user.toUpperCase()+"' is not a 'The Key of True - TKT Oficial' channel subscriber, visit https://t.me/thekeyoftrueTKT", "success");
+						}, 400)
+						
+					}//The Key of True - TKT Oficial
+					
+                },
+                error: function(error){
+                       alert('error auth telegram')
+                }
+        	});
+		},
+		auth_metamask: function(e){
+			that = this;
+			var user = $('#telegramUsername').val();
 			var url = new URL("https://telegrambottkt.onrender.com/api/telegram");//encodeURI('');
 			//var url2 = new URL("https://telegrambottkt.onrender.com/api/telegram?token=tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s&user=Davier&group=TktPrueva&type=broadcast")
 			//'thekeyoftrueTKT',
@@ -192,7 +249,6 @@ var TKT = AolaxReactive({
 				group: "TktPrueva",
 				type: "broadcast"
 			}
-
 			$.ajax({
                 url : url,
                 data : JSON.stringify(json),
@@ -201,16 +257,13 @@ var TKT = AolaxReactive({
 				success : function(r){
 						console.log(r.response)
 						if(r.response == 'user_ok'){
-							function aa(name, value, days){
-								var d = new Date();
-								d.setTime(d.getTime() + 24*60*60*1000*days);
-								document.cookie = name + "=" + value + ";path=/; secure = true; expires=" + d.toGMTString() +"; max-age=" + d.toGMTString();
-							}("username", r, 360);
+							that.setCookie("telegramuser", JSON.stringify(r), 360);
 							that.startNext(e);
-						}else if(r.response == 'user_exist'){
-							swal("Error", "The user '"+user.toUpperCase()+"' is not a 'The Key of True - TKT Oficial' channel subscriber, visit https://t.me/thekeyoftrueTKT", "error");
-							//swal("Error", "The user '"+user.toUpperCase()+"' already received the tokens, please use another account", "error");
-						}else if(r.response == 'user_not_registry'){
+						}
+						else if(r.response == 'user_exist'){
+							swal("Error", "The user '"+user.toUpperCase()+"' already received the tokens, please use another account", "error");
+						}
+						else if(r.response == 'user_not_registry'){
 							swal("Error", "The user '"+user.toUpperCase()+"' is not a 'The Key of True - TKT Oficial' channel subscriber, visit https://t.me/thekeyoftrueTKT", "error");
 						}//The Key of True - TKT Oficial
                 },
@@ -254,6 +307,47 @@ var TKT = AolaxReactive({
 				//this comes from the custom easing plugin
 				easing: 'easeInOutBack'
 			});
+		},
+		setCookie: function(name, value, days){
+			var d = new Date();
+			d.setTime(d.getTime() + 24*60*60*1000*days);
+			document.cookie = name + "=" + value + ";path=/; secure = true; expires=" + d.toGMTString() +"; max-age=" + d.toGMTString();
+		},
+		getCookie: function(name){
+			var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+			return v ? v[2] : null;
+		},
+		loaderShow: function(){
+			$('#loader_verificacion_overlay').show()
+			$('#loader_verificacion .sa-success').hide()
+			$('#sa_success_text').hide()
+			$('#loader_verificacion #pre_loader2').show()
+			$('#loader_verificacion #pre_loader_3').show()
+			$('#loader_verificacion #pre_loader_text').show()
+			$('#loader_verificacion').show()
+		},
+		loaderHide: function(){
+			$('#loader_verificacion_overlay').show()
+			$('#loader_verificacion .sa-success').show()
+			$('#loader_verificacion #pre_loader2').hide()
+			$('#loader_verificacion #pre_loader_3').hide()
+			$('#loader_verificacion #pre_loader_text').hide()
+			$('#loader_verificacion').hide()
+			$('#loader_verificacion_overlay').hide()
+		},
+		loaderHideOk: function(){
+			$('#loader_verificacion .sa-success').show()
+			$('#sa_success_text').show()
+			$('#loader_verificacion #pre_loader2').hide()
+			$('#loader_verificacion #pre_loader_3').hide()
+			$('#loader_verificacion #pre_loader_text').hide()
+			window.setTimeout(()=>{
+				$('#loader_verificacion').hide()
+				$('#loader_verificacion_overlay').hide()
+			}, 1000)
+		},
+		validatePaso: function(){
+			
 		}
     },
     styles: `
@@ -262,6 +356,16 @@ var TKT = AolaxReactive({
 		}
 		#progressbar {
 			margin-bottom: 20px !important;
+		}
+		#progressbar i::before {
+			font-size: 15px;
+			color: rgb(137, 188, 255) !important;
+		}
+		#progressbar li{
+			color: rgb(137, 188, 255) !important;
+		}
+		#msform #progressbar li.active::before, #progressbar li.active::after {
+			background: rgb(137, 188, 255) !important;
 		}
 		body {
 			overflow-y: hidden;
