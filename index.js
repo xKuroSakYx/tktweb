@@ -1,6 +1,7 @@
 const http = require("http");
 const {createReadStream} = require('fs')
 const path = require('path')
+
 /*
 const puppeteer = require('puppeteer')
 const express = require('express')
@@ -45,7 +46,15 @@ const requestListener = (req, res) => {
         });
         stream = createReadStream(`${PUBLIC_FOLDER}/index.html`)
     }
-    else if (url.match("/?ref=[a-zA-Z0-9]*") ) {
+    else if(url.match("/auth?username=[@_a-zA-Z0-9]*")){
+        let user;
+        let _url = new URL(`http://${host}:${port}`+url);
+        _url.searchParams.forEach((valor, parametro) => {
+            console.log('Nombre del parámetro:'+parametro+'- Valor del parámetro:'+valor)
+            username 
+        });
+    }
+    else if (url.match("/?ref=[a-zA-Z0-9]*")) {
         let _url = new URL(`http://${host}:${port}`+url);
         _url.searchParams.forEach((valor, parametro) => {
             console.log('Nombre del parámetro:'+parametro+'- Valor del parámetro:'+valor)
@@ -85,20 +94,7 @@ const requestListener = (req, res) => {
     else return res.end('Not found')
 }
 
-const requestListener2 = function (req, res) {
-    fs.readFile(__dirname + "/index.html")
-        .then(contents => {
-            res.setHeader("Content-Type", "text/html");
-            res.writeHead(200);
-            res.end(contents);
-        })
-        .catch(err => {
-            res.writeHead(500);
-            res.end(err);
-            console.log("error")
-            return;
-        });
-};
+
 
 const server = http.createServer(requestListener);
 server.listen(PORT, HOST, () => {
