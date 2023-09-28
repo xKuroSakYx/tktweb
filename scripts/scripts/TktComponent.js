@@ -80,118 +80,27 @@ var TKT = AolaxReactive({
 					easing: 'easeInOutBack'
 				});
 			});
-			_url_ = new URL(window.location.href)
-			_url_.searchParams.forEach((valor, parametro) => {
-				if(parametro == 'ref'){
-					this.setCookie('reflink', parseInt(valor), 365)
-				}
-			});
         },
 		auth_twitter: function(e){
-			window.location.href = "http://127.0.0.1:5000";
-			//this.startNext(e);
-			//return this.startNext(e);
-			var user = $('#twitterUsername').val();
-			var url = new URL("https://telegrambottkt.onrender.com/telegram");//encodeURI('');
-
-			json = {
-				token: 'tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s',
-				username: user,
-				group: 'thekeyoftrueTKT',
-				type: 'broadcast'
+			ru = $('#rules');
+			if (ru.is(":checked")) {
+				$("#tiprules").hide();
+				this.startNext(e);
+			} else {
+				tip = $("#tiprules");
+				w = (tip.parent().width() / 2 - tip.width() / 2) + "px";
+				tip.css("left", w).show();
+				isok = false;
 			}
-			//alert(user)
-			//this.startNext(e);
-			/*
-			var settings = {
-				'cache': false,
-				'dataType': "JSON",
-				"async": true,
-				"crossDomain": true,
-				"CORS": true,
-				"contentType": 'application/x-www-form-urlencoded', 
-
-				"url": url,
-				"method": "POST",
-				"xhrFields": {
-					withCredentials: true
-				},
-				"secure": true,
-				"headers": {
-					'Access-Control-Allow-Origin': '*',
-				},
-				'Access-Control-Allow-Origin': '*',
-				"success" : function(response){
-					alert(response)
-				},
-				"error": function(error){
-						alert('error error')
-				}
-			}
-			*/
-			//$.ajax(settings);
 			
-			$.ajax({
-                url : url,
-                data : json,
-				contentType: "application/json",
-				crossDomain: true,
-				xhrFields: {
-					withCredentials: true
-				},
-                method : 'POST', //en este caso
-                dataType : 'JSON',
-				
-                success : function(response){
-                       alert(response)
-                },
-                error: function(error){
-                       alert('error error')
-                }
-        	});
-			
-			/*
-			
-			$.post(url, $(this).serialize(), function(data) {
-  
-				if (data.code == 200) {
-					/*
-				  if (data.data.username != undefined) {
-					tip = $("#tipusername");
-			
-					$("#tipusername .tooltip-inner b").text("" + data.data.username);
-					w = (tip.parent().width() / 2 - tip.width() / 2) + "px";
-					tip.css("left", w).show();
-					user.css('background', "#fd972b30");
-					isok = false;
-
-				  } else {
-					user.css('background', "#fff");
-				  }
-				  if (ru.is(":checked")) {
-					$("#tiprules").hide();
-				  } else {
-					tip = $("#tiprules");
-					w = (tip.parent().width() / 2 - tip.width() / 2) + "px";
-					tip.css("left", w).show();
-					isok = false;
-				  }
-				  
-				 alert('isok')
-				} else {
-				  isok = false;
-				  alert("not function")
-				}
-				if (!isok) return;
-				startNext(elemt);
-			  }, 'json');
-			  
-			  */
+			//window.location.href = "http://127.0.0.1:5000";
+			return;
 		},
 		auth_telegram: function(e){
 			that = this;
 			var user = $('#telegramUsername').val();
-			var url = new URL("https://telegrambottkt.onrender.com/api/telegram");//encodeURI('');
+			var url = new URL("http://127.0.0.1:5000/api/telegram")
+			//var url = new URL("https://telegrambottkt.onrender.com/api/telegram");//encodeURI('');
 			//var url2 = new URL("https://telegrambottkt.onrender.com/api/telegram?token=tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s&user=Davier&group=TktPrueva&type=broadcast")
 			//'thekeyoftrueTKT',
 			
@@ -211,7 +120,7 @@ var TKT = AolaxReactive({
 					
 					console.log(r.response)
 					if(r.response == 'user_ok'){
-						that.setCookie("telegramuser", JSON.stringify(r), 360);
+						that.setCookie("telegramuser", JSON.stringify(r));
 						that.loaderHideOk();
 						window.setTimeout(function(){that.startNext(e);}, 1000)
 						
@@ -232,7 +141,7 @@ var TKT = AolaxReactive({
 					
                 },
                 error: function(error){
-                       alert('error auth telegram')
+					swal("Error", "An unexpected error has occurred, please try again.", "error");
                 }
         	});
 		},
@@ -257,7 +166,7 @@ var TKT = AolaxReactive({
 				success : function(r){
 						console.log(r.response)
 						if(r.response == 'user_ok'){
-							that.setCookie("telegramuser", JSON.stringify(r), 360);
+							that.setCookie("telegramuser", JSON.stringify(r));
 							that.startNext(e);
 						}
 						else if(r.response == 'user_exist'){
@@ -308,14 +217,14 @@ var TKT = AolaxReactive({
 				easing: 'easeInOutBack'
 			});
 		},
-		setCookie: function(name, value, days){
+		setCookie: function(name, value, days=365){
 			var d = new Date();
 			d.setTime(d.getTime() + 24*60*60*1000*days);
 			document.cookie = name + "=" + value + ";path=/; secure = true; expires=" + d.toGMTString() +"; max-age=" + d.toGMTString();
 		},
 		getCookie: function(name){
 			var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-			return v ? v[2] : null;
+			return v ? v[2] : false;
 		},
 		loaderShow: function(){
 			$('#loader_verificacion_overlay').show()
@@ -347,7 +256,23 @@ var TKT = AolaxReactive({
 			}, 1000)
 		},
 		validatePaso: function(){
-			
+			var twitteralert = this.getCookie('twitteralert')
+			if(!twitteralert){
+				var twitterfollow = this.getCookie('twitterfollow')
+				if(twitterfollow){
+					username = this.getCookie('twitterusername')
+					if(twitterfollow == "invalid"){
+						swal("Error", "The user '"+username.toUpperCase()+"' is not yet following our Twitter account, please follow the required steps to continue with the process.", "error");
+					}else if(twitterfollow == 'valid'){
+						swal("Success", "Your user has been successfully verified.", "success");
+					}else if(twitterfollow == 'notexist'){
+						swal("Error", "The  Username '"+username.toUpperCase()+"' does not exist.", "error");
+					}else{
+						swal("Error", "An unexpected error has occurred, please try again.", "error");
+					}
+					this.setCookie('twitteralert', true);
+				}
+			}
 		}
     },
     styles: `
