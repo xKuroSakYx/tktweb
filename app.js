@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, "css")));
 app.use(express.static(path.join(__dirname, "scripts")));
 app.use(express.static(path.join(__dirname, "img")));
 
-app.get('/ref/:id', (req, res) => {
+app.get('/ref', (req, res) => {
     stream = createReadStream(`${PUBLIC_FOLDER}/index.html`)
     res.status(200).send({ response: 'Username not register' });
 
