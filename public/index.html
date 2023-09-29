@@ -118,7 +118,7 @@
 				<!--input type="text" class="form-control" name="twitterUsername" id="twitterUsername" placeholder="Usuario" value=""/-->
 				<div id="tipusername" class="tooltip " x-placement="top"><div class="arrow"></div><div class="tooltip-inner"><b></b></div></div>
 			</div>
-			<div class="col-md-12" style="padding:0; padding-bottom:5px;">
+			<!--div class="col-md-12" style="padding:0; padding-bottom:5px;">
 				<div class="checkbox-fade fade-in-primary">
 					<label style="position:relative;">
 						<input type="checkbox" name="rules" id="rules" value="1">
@@ -127,7 +127,7 @@
 						<div id="tiprules" class="tooltip " x-placement="top"><div class="arrow"></div><div class="tooltip-inner"><b style="color:red">Debe Aceptar las Reglas</b></div></div>
 					</label>
 				</div>
-			</div>
+			</div-->
 			<button btn="auth_twitter" type="button" name="next" class="btn btn-primary next" value="Next">verify</button>
 		</fieldset>
 		<fieldset  style="background: rgba(0, 0, 0, 0.72);">
@@ -145,13 +145,23 @@
 				</ul>
 			</div>
 
-			<div class="input-group">
+			<!--div class="input-group">
 				<input type="text" class="form-control" name="telegramUsername" id="telegramUsername" placeholder="Usuario" value=""/>
 				<div id="tipusername2" class="tooltip " x-placement="top"><div class="arrow"></div><div class="tooltip-inner"><b></b></div></div>
+			</div-->
+			<div class="input-group">
+				<input type="text" class="form-control" name="telegramUsername" id="telegramUsername" placeholder="Username of Telegram" value="" style="border-radius: 15px; padding: 6px 20px; z-index:1"/>
+				<div id="tipusername2" class="tooltip " x-placement="top"><div class="arrow"></div><div class="tooltip-inner"><b></b></div></div>
+				<button btn="auth_telegram" type="button" name="next" class="btn btn-primary next" style="padding: 0px 15px;" value="Next">Verify</button>
 			</div>
-
+			<div class="input-group">
+				<input type="text" class="form-control" name="telegramUsername" id="telegramCode" placeholder="Codigo de Verificacion" value="" style="border-radius: 15px; padding: 6px 20px; z-index:1"/>
+				<div id="tipusername2" class="tooltip " x-placement="top"><div class="arrow"></div><div class="tooltip-inner"><b></b></div></div>
+				<button btn="auth_telegram_code" type="button" name="next" class="btn btn-primary next"  style="padding: 0px 15px;" value="Next">Verify</button>
+			</div>
+			
 			<button type="button" name="previous" class="btn btn-inverse btn-outline-inverse previous" value="Previous">Atras</button>
-			<button btn="auth_telegram" type="button" name="next" class="btn btn-primary next" value="Next">Siguiente</button>
+			<!--button btn="auth_telegram" type="button" name="next" class="btn btn-primary next" value="Next">Siguiente</button-->
 		</fieldset>
 		<fieldset style="background: rgba(0, 0, 0, 0.72);">
 			<img class="logo" src="./cute-monkey-AirDrop-TKTlog88x120.png" alt="logo.png">
@@ -200,6 +210,7 @@
     <script type="text/javascript" src="./i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
     <script type="text/javascript" src="./jquery-i18next/js/jquery-i18next.min.js"></script-->
 	<script type="text/javascript" src="./scripts/sweetalert.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.1/dist/confetti.browser.min.js"></script>
     <script type="text/javascript" src="./scripts/TktComponent.js"></script>
 </body>
 </html>

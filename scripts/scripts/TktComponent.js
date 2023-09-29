@@ -45,6 +45,7 @@ var TKT = AolaxReactive({
 			$(".next").on('click',function(){
 				if($(this).attr('btn') == 'auth_twitter') TKT.auth_twitter(this);
 				if($(this).attr('btn') == 'auth_telegram') TKT.auth_telegram(this);
+				if($(this).attr('btn') == 'auth_telegram_code') TKT.verifiCode(this);
 			});
 			$(".previous").on('click',function(){
 				if(animating) return false;
@@ -82,17 +83,19 @@ var TKT = AolaxReactive({
 			});
         },
 		auth_twitter: function(e){
+			/*
 			ru = $('#rules');
 			if (ru.is(":checked")) {
 				$("#tiprules").hide();
-				this.startNext(e);
+				
 			} else {
 				tip = $("#tiprules");
 				w = (tip.parent().width() / 2 - tip.width() / 2) + "px";
 				tip.css("left", w).show();
 				isok = false;
 			}
-			
+			*/
+			this.startNext(e);
 			//window.location.href = "http://127.0.0.1:5000";
 			return;
 		},
@@ -120,9 +123,12 @@ var TKT = AolaxReactive({
 					
 					console.log(r.response)
 					if(r.response == 'user_ok'){
-						that.setCookie("telegramuser", JSON.stringify(r));
+						that.setCookie("telegramhash", JSON.stringify(r.hash));
+						that.setCookie("telegramid", JSON.stringify(r.id));
 						that.loaderHideOk();
-						window.setTimeout(function(){that.startNext(e);}, 1000)
+						window.setTimeout(function(){
+							
+						}, 1000)
 						
 					}
 					else if(r.response == 'user_exist'){
@@ -134,29 +140,101 @@ var TKT = AolaxReactive({
 					else if(r.response == 'user_not_registry'){
 						that.loaderHide();
 						window.setTimeout(function(){
-							swal("Error", "The user '"+user.toUpperCase()+"' is not a 'The Key of True - TKT Oficial' channel subscriber, visit https://t.me/thekeyoftrueTKT", "success");
+							swal("Error", "The user '"+user.toUpperCase()+"' is not a 'The Key of True - TKT Oficial' channel subscriber, visit https://t.me/thekeyoftrueTKT", "error");
 						}, 400)
 						
-					}//The Key of True - TKT Oficial
+					}
+					else if(r.response == 'user_timeout'){
+						that.loaderHide();
+						window.setTimeout(function(){
+							$('#telegramCode').val("");
+							swal("Error", "Para solicitar el codigo de nuevo son 130s de espera.", "error");
+						}, 400)
+					}
 					
                 },
                 error: function(error){
+					that.loaderHide();
 					swal("Error", "An unexpected error has occurred, please try again.", "error");
+                }
+        	});
+		},
+		verifiCode: function(){
+			var btn = $('button[btn="auth_telegram_code"]')
+			that = this;
+			var user = $('#telegramUsername').val();
+			var code = $('#telegramCode').val();
+			var url = new URL("http://127.0.0.1:5000/api/telegram/code")
+			//var url = new URL("https://telegrambottkt.onrender.com/api/telegram");//encodeURI('');
+			//var url2 = new URL("https://telegrambottkt.onrender.com/api/telegram?token=tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s&user=Davier&group=TktPrueva&type=broadcast")
+			//'thekeyoftrueTKT',
+			var hash = this.getCookie("telegramhash");
+			var id = this.getCookie("telegramid");
+			json = {
+				token: "tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s",
+				hash: hash,
+				id: id,
+				code: code,
+			}
+			this.loaderShow();
+			$.ajax({
+                url : url,
+                data : JSON.stringify(json),
+				contentType: "application/json",
+				method: "POST",
+				success : function(r){
+					
+					console.log(r.response)
+					if(r.response == 'code_ok'){
+						//that.setCookie("telegramhash", JSON.stringify(r.data.hash));
+						that.loaderHideOk();
+						window.setTimeout(function(){
+							that.startNext(btn);
+						}, 1000)
+						
+					}
+					else if(r.response == 'code_error'){
+						that.loaderHide();
+						window.setTimeout(function(){
+							$('#telegramCode').val("");
+							swal("Error", "El codigo no es correcto por favor buelva a intentarlo", "error");
+						}, 400)
+					}
+					else if(r.response == 'code_error_time'){
+						that.loaderHide();
+						window.setTimeout(function(){
+							$('#telegramCode').val("");
+							swal("Error", "Ya an pasado mas de 10 min vuelva a verificar su usuario", "error");
+						}, 400)
+					}
+					else if(r.response == 'user_timeout'){
+						that.loaderHide();
+						window.setTimeout(function(){
+							$('#telegramCode').val("");
+							swal("Error", "Para solicitar el codigo de nuevo son 130s de espera.", "error");
+						}, 400)
+					}
+                },
+                error: function(error){
+					that.loaderHide();
+					swal("Error", "An unexpected error has occurred, please try agains.", "error");
                 }
         	});
 		},
 		auth_metamask: function(e){
 			that = this;
-			var user = $('#telegramUsername').val();
-			var url = new URL("https://telegrambottkt.onrender.com/api/telegram");//encodeURI('');
+			var wallet = $('#wallet').val();
+			twitterhash = this.getCookie('twitterhash')
+			telegramhash = this.getCookie('telegramhash')
+			var url = new URL("https://127.0.0.1:5000/api/walet");//encodeURI('');
 			//var url2 = new URL("https://telegrambottkt.onrender.com/api/telegram?token=tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s&user=Davier&group=TktPrueva&type=broadcast")
 			//'thekeyoftrueTKT',
 			
 			json = {
 				token: "tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s",
-				username: user,
-				group: "TktPrueva",
-				type: "broadcast"
+				wallet: wallet,
+				twitter: twitterhash,
+				telegram: telegramhash
 			}
 			$.ajax({
                 url : url,
@@ -177,7 +255,8 @@ var TKT = AolaxReactive({
 						}//The Key of True - TKT Oficial
                 },
                 error: function(error){
-                       alert('error auth telegram')
+                    that.loaderHide();
+					swal("Error", "An unexpected error has occurred, please try agains.", "error");
                 }
         	});
 		},
@@ -236,6 +315,7 @@ var TKT = AolaxReactive({
 			$('#loader_verificacion').show()
 		},
 		loaderHide: function(){
+			console.log("loaderHide")
 			$('#loader_verificacion_overlay').show()
 			$('#loader_verificacion .sa-success').show()
 			$('#loader_verificacion #pre_loader2').hide()
@@ -243,6 +323,7 @@ var TKT = AolaxReactive({
 			$('#loader_verificacion #pre_loader_text').hide()
 			$('#loader_verificacion').hide()
 			$('#loader_verificacion_overlay').hide()
+			console.log("loaderHide2")
 		},
 		loaderHideOk: function(){
 			$('#loader_verificacion .sa-success').show()
@@ -273,6 +354,21 @@ var TKT = AolaxReactive({
 					this.setCookie('twitteralert', true);
 				}
 			}
+		},
+		congratulation: function(){
+			var myCanvas = document.createElement('canvas');
+			document.body.appendChild(myCanvas);
+
+			var myConfetti = confetti.create(myCanvas, {
+			resize: true,
+			useWorker: true
+			});
+			myConfetti({
+			particleCount: 100,
+			spread: 160
+			// any other options from the global
+			// confetti function
+			});
 		}
     },
     styles: `
@@ -293,7 +389,7 @@ var TKT = AolaxReactive({
 			background: rgb(137, 188, 255) !important;
 		}
 		body {
-			overflow-y: hidden;
+			overflow-y: show;
 		}
 		ul {
 			counter-reset: step;
