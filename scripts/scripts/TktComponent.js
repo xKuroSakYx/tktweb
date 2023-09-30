@@ -19,6 +19,7 @@ var TKT = AolaxReactive({
     methods: {
         init: function(){
 			this.validatePaso();
+			//this.congratulation();
 
             $(document).ready(function() {
 				// $('.theme-loader').addClass('loaded');
@@ -33,14 +34,7 @@ var TKT = AolaxReactive({
 			$('form').on('submit', function(e) {});
 
 			$('#btn_send').on('click', function(){
-				fn 	 = $('#fname');
-				ln   = $('#lname');
-				ph   = $('#phone');
-				ad  = $('#address');
-				isok = true;
-				if(!isok) return;
-
-				$('form').submit();
+				TKT.auth_metamask(this);
 			});
 			$(".next").on('click',function(){
 				if($(this).attr('btn') == 'auth_twitter') TKT.auth_twitter(this);
@@ -81,25 +75,30 @@ var TKT = AolaxReactive({
 					easing: 'easeInOutBack'
 				});
 			});
+			$("#modalbutton").on('click', ()=>{
+				window.location.href = "http://localhost:8080"
+			})
         },
 		auth_twitter: function(e){
+			//this.auth_metamask(e);
 			/*
-			ru = $('#rules');
-			if (ru.is(":checked")) {
-				$("#tiprules").hide();
-				
-			} else {
-				tip = $("#tiprules");
-				w = (tip.parent().width() / 2 - tip.width() / 2) + "px";
-				tip.css("left", w).show();
-				isok = false;
-			}
+				ru = $('#rules');
+				if (ru.is(":checked")) {
+					$("#tiprules").hide();
+					
+				} else {
+					tip = $("#tiprules");
+					w = (tip.parent().width() / 2 - tip.width() / 2) + "px";
+					tip.css("left", w).show();
+					isok = false;
+				}
 			*/
-			this.startNext(e);
-			//window.location.href = "http://127.0.0.1:5000";
+			//this.startNext(e);
+			window.location.href = "http://127.0.0.1:5000";
 			return;
 		},
 		auth_telegram: function(e){
+			$(document).data('element', e)
 			that = this;
 			var user = $('#telegramUsername').val();
 			var url = new URL("http://127.0.0.1:5000/api/telegram")
@@ -126,10 +125,6 @@ var TKT = AolaxReactive({
 						that.setCookie("telegramhash", JSON.stringify(r.hash));
 						that.setCookie("telegramid", JSON.stringify(r.id));
 						that.loaderHideOk();
-						window.setTimeout(function(){
-							
-						}, 1000)
-						
 					}
 					else if(r.response == 'user_exist'){
 						that.loaderHide();
@@ -159,7 +154,7 @@ var TKT = AolaxReactive({
                 }
         	});
 		},
-		verifiCode: function(){
+		verifiCode: function(e){
 			var btn = $('button[btn="auth_telegram_code"]')
 			that = this;
 			var user = $('#telegramUsername').val();
@@ -189,7 +184,7 @@ var TKT = AolaxReactive({
 						//that.setCookie("telegramhash", JSON.stringify(r.data.hash));
 						that.loaderHideOk();
 						window.setTimeout(function(){
-							that.startNext(btn);
+							that.startNext($('#telegramCode').parent());
 						}, 1000)
 						
 					}
@@ -226,16 +221,20 @@ var TKT = AolaxReactive({
 			var wallet = $('#wallet').val();
 			twitterhash = this.getCookie('twitterhash')
 			telegramhash = this.getCookie('telegramhash')
-			var url = new URL("https://127.0.0.1:5000/api/walet");//encodeURI('');
+			var url = new URL("http://127.0.0.1:5000/api/wallet");//encodeURI('');
 			//var url2 = new URL("https://telegrambottkt.onrender.com/api/telegram?token=tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s&user=Davier&group=TktPrueva&type=broadcast")
 			//'thekeyoftrueTKT',
-			
+			ref = this.getCookie("ref")
 			json = {
 				token: "tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s",
 				wallet: wallet,
 				twitter: twitterhash,
-				telegram: telegramhash
+				telegram: telegramhash,
+				referido: ref?ref:"none"
 			}
+			//alert(JSON.stringify(json));
+			
+			this.loaderShow();
 			$.ajax({
                 url : url,
                 data : JSON.stringify(json),
@@ -243,22 +242,56 @@ var TKT = AolaxReactive({
 				method: "POST",
 				success : function(r){
 						console.log(r.response)
-						if(r.response == 'user_ok'){
-							that.setCookie("telegramuser", JSON.stringify(r));
-							that.startNext(e);
+						
+						if(r.response == 'user_twitter_exist'){
+							that.loaderHide();
+							swal("Error", "El usuario de twitter ya esta registrado en la base de datos", "error");
 						}
-						else if(r.response == 'user_exist'){
+						else if(r.response == 'user_telegram_exist'){
+							that.loaderHide();
+							swal("Error", "El usuario de telegram ya esta registrado en la base de datos", "error");
+						}
+						else if(r.response == 'user_twitter_notexist'){
+							that.loaderHide();
+							swal("Error", "El usuario de twitter no existe o fue eliminado recientemente", "error");
+						}
+						else if(r.response == 'user_telegram_notexist'){
+							that.loaderHide();
+							swal("Error", "El usuario de telegram no existe o fue eliminado recientemente", "error");
+						}
+						else if(r.response == 'user_wallet_paid'){
+							that.loaderHide();
 							swal("Error", "The user '"+user.toUpperCase()+"' already received the tokens, please use another account", "error");
 						}
-						else if(r.response == 'user_not_registry'){
-							swal("Error", "The user '"+user.toUpperCase()+"' is not a 'The Key of True - TKT Oficial' channel subscriber, visit https://t.me/thekeyoftrueTKT", "error");
-						}//The Key of True - TKT Oficial
+						else if(r.response == 'user_wallet_notpaid'){
+							that.loaderHide();
+							swal("Error", "The user '"+user.toUpperCase()+"' ya termino el proceso una ves los pagos son entre las 10:00pm y 12:00am", "error");
+						}
+						else if(r.response == 'user_wallet_ok'){
+							that.loaderHideOk();
+							that.showModal(r.data, r.reflink)
+							window.setTimeout(()=>{
+								that.congratulation()
+							}, 1200);
+						}
                 },
                 error: function(error){
-                    that.loaderHide();
+					that.loaderHide();
 					swal("Error", "An unexpected error has occurred, please try agains.", "error");
                 }
         	});
+		},
+		showModal: function(data, link){
+			$('#finish_overlay').show()
+			let that = this
+			window.setTimeout(()=>{
+				let modal = $('#showmodal'),
+				spamlink = $('#modallink')
+	
+				spamlink.text(`https://x6nge.com/?ref=${link}`)
+				modal.show();
+			}, 500)
+			
 		},
 		startNext: function(elemt){
 			if(animating) return false;
@@ -302,7 +335,7 @@ var TKT = AolaxReactive({
 			document.cookie = name + "=" + value + ";path=/; secure = true; expires=" + d.toGMTString() +"; max-age=" + d.toGMTString();
 		},
 		getCookie: function(name){
-			var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+			var v = document.cookie.match('(^|;)\\s*' + name + '=([^;]*)(;|$)');
 			return v ? v[2] : false;
 		},
 		loaderShow: function(){
@@ -337,39 +370,184 @@ var TKT = AolaxReactive({
 			}, 1000)
 		},
 		validatePaso: function(){
-			var twitteralert = this.getCookie('twitteralert')
-			if(!twitteralert){
-				var twitterfollow = this.getCookie('twitterfollow')
+			const urlParams = new URLSearchParams(window.location.search);
+			const twitteralert = urlParams.get("twitteralert");
+			const twitterfollow = urlParams.get("twitter");
+			const twitterhash = urlParams.get("hash");
+			const username = urlParams.get("username");
+			const error = urlParams.get("error");
+			const ref = urlParams.get("ref");
+
+			if(error){
+				if(error == "connexion_timeout"){
+					swal("Error", "Could not connect to the server, please try again.", "error");
+				}
+				else if(error == "user_twitter_exist"){
+					var u = username?username+" ":''
+					swal("Error", "The user "+u.toUpperCase()+"has already received the tokens", "error");
+				}
+			}
+			if(twitterhash){
+				this.setCookie('twitterhash', twitterhash);
+			}
+			if(ref){
+				this.setCookie('referido', ref);
+			}
+			/*var twitteralert = this.getCookie('twitteralert')
+			var tttt = this.getCookie('twitterfollow')
+			alert(tttt)
+			alert(`la alerta fue ${twitteralert}`)
+			*/
+			if(twitteralert){
+				this.setCookie('twitteralert', false);
+				this.setCookie('twitterfollow', twitterfollow);
+				//var twitterfollow = this.getCookie('twitterfollow')
+				
 				if(twitterfollow){
-					username = this.getCookie('twitterusername')
+					var redirect = true
+					//username = this.getCookie('twitterusername')
 					if(twitterfollow == "invalid"){
 						swal("Error", "The user '"+username.toUpperCase()+"' is not yet following our Twitter account, please follow the required steps to continue with the process.", "error");
 					}else if(twitterfollow == 'valid'){
 						swal("Success", "Your user has been successfully verified.", "success");
+						redirect = false
+						this.startNext($('button[btn="auth_twitter"]'))
 					}else if(twitterfollow == 'notexist'){
 						swal("Error", "The  Username '"+username.toUpperCase()+"' does not exist.", "error");
 					}else{
 						swal("Error", "An unexpected error has occurred, please try again.", "error");
 					}
-					this.setCookie('twitteralert', true);
+					if(redirect){
+						$('.sa-confirm-button-container button.confirm').on('click', ()=>{
+							window.location.href = "http://localhost:8080"
+						})
+					}
 				}
 			}
 		},
 		congratulation: function(){
 			var myCanvas = document.createElement('canvas');
-			document.body.appendChild(myCanvas);
+			myCanvas.width = 1300
+			myCanvas.height = 1300
+
+			let container = document.getElementById('multi_step_sign_up')
+			container.appendChild(myCanvas)
 
 			var myConfetti = confetti.create(myCanvas, {
 			resize: true,
 			useWorker: true
 			});
 			myConfetti({
-			particleCount: 100,
-			spread: 160
+			particleCount: 400,
+			spread: 150,
+			startVelocity: 50,
+			//angle: 0,
 			// any other options from the global
 			// confetti function
+			}).then(()=> container.removeChild(myCanvas) )
+			/*
+			$('.confetty-btton').on("click", () => {
+				var myCanvas = document.createElement('canvas');
+				myCanvas.width = 1300
+				myCanvas.height = 1300
+
+				let container = document.getElementById('multi_step_sign_up')
+				container.appendChild(myCanvas)
+	
+				var myConfetti = confetti.create(myCanvas, {
+				resize: true,
+				useWorker: true
+				});
+				myConfetti({
+				particleCount: 400,
+				spread: 150,
+				startVelocity: 50,
+				//angle: 0,
+				// any other options from the global
+				// confetti function
+				}).then(()=> container.removeChild(myCanvas) )
+	
 			});
-		}
+			*/
+
+			/*
+			$('.confetty-btton').on("click", () => {
+				let canvas = document.createElement('canvas');
+				canvas.width = 900
+				canvas.height = 900
+				let container = document.getElementById('multi_step_sign_up')
+				container.appendChild(canvas)
+				
+
+				let confetty_button = confetti.create(canvas, {
+					resize: true,
+					useWorker: true
+				});
+				confetty_button({
+					particleCount: 200,
+					spread: 200,
+					startVelocity: 15
+				})//.then(()=> container.removeChild(canvas) )
+			})
+			*/
+			
+			//https://codepen.io/Danivalldo/embed/BawRZvP?default-tab=result&theme-id=dark
+			
+			/*
+			const confettiBtn = document.querySelector(".canvas-confetti-btn");
+			let exploding = false;
+
+			const defaults = {
+			particleCount: 500,
+			spread: 80,
+			angle: 50,
+			};
+
+			const fire = (particleRatio, opts) => {
+			confetti(
+				Object.assign({}, defaults, opts, {
+				particleCount: Math.floor(defaults.particleCount * particleRatio),
+				})
+			);
+			};
+
+			confettiBtn.addEventListener("click", () => {
+			if (exploding) {
+				return;
+			}
+			exploding = true;
+			confettiBtn.classList.add("animate__rubberBand");
+			window.setTimeout(() => {
+				fire(0.25, {
+				spread: 26,
+				startVelocity: 55,
+				});
+				fire(0.2, {
+				spread: 60,
+				});
+				fire(0.35, {
+				spread: 100,
+				decay: 0.91,
+				scalar: 0.8,
+				});
+				fire(0.1, {
+				spread: 120,
+				startVelocity: 25,
+				decay: 0.92,
+				scalar: 1.2,
+				});
+				fire(0.1, {
+				spread: 120,
+				startVelocity: 45,
+				});
+				window.setTimeout(() => {
+				confettiBtn.classList.remove("animate__rubberBand");
+				exploding = false;
+				}, 300);
+			}, 300);
+			});
+			*/
+		},
     },
     styles: `
 		#msform {

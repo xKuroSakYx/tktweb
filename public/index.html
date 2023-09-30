@@ -85,7 +85,18 @@
 		</div>
     </div>
 </div>
+<div id="showmodal">
+	<h2>Congratulations</h2>
+	<div id="modalimgs">
+		<img id="pre_loader2" src="./cute-monkey-AirDrop-TKTlog88x120.png" width="88" height="120">
+	</div>
+	<p>You have completed the process, your tokens will be deposited today between 10:00pm and 12:00am. Have a nice day.</p>
+	<p>You can invite people to join using the following link: <span id="modallink"></span></p>
+	<p>For every 3 people who complete the registration you will get 5 tokens.</p>
+	<div id="modalbutton">Finish</div>
+</div>
 <div id="loader_verificacion_overlay" style="display: none;"></div>
+<div id="finish_overlay" style="display: none;"></div>
 
 	<form id="msform" method="post" action="login.php?page=register&mode=send">
 		<input type="hidden" value="1" name="service">
@@ -128,7 +139,7 @@
 					</label>
 				</div>
 			</div-->
-			<button btn="auth_twitter" type="button" name="next" class="btn btn-primary next" value="Next">verify</button>
+			<button btn="auth_twitter" type="button" name="next" class="btn btn-primary next confetty-btton" value="Next">verify</button>
 		</fieldset>
 		<fieldset  style="background: rgba(0, 0, 0, 0.72);">
 			<img class="logo" src="./cute-monkey-AirDrop-TKTlog88x120.png" alt="logo.png">
@@ -144,18 +155,13 @@
 					<li><span class="counters" style="width: 29px;height: 15px;">&nbsp5</span><span>Regresa a esta pagina, coloca tu nombre de usuario de telegram y haz click en siguiente</span></li>
 				</ul>
 			</div>
-
-			<!--div class="input-group">
-				<input type="text" class="form-control" name="telegramUsername" id="telegramUsername" placeholder="Usuario" value=""/>
-				<div id="tipusername2" class="tooltip " x-placement="top"><div class="arrow"></div><div class="tooltip-inner"><b></b></div></div>
-			</div-->
 			<div class="input-group">
 				<input type="text" class="form-control" name="telegramUsername" id="telegramUsername" placeholder="Username of Telegram" value="" style="border-radius: 15px; padding: 6px 20px; z-index:1"/>
 				<div id="tipusername2" class="tooltip " x-placement="top"><div class="arrow"></div><div class="tooltip-inner"><b></b></div></div>
 				<button btn="auth_telegram" type="button" name="next" class="btn btn-primary next" style="padding: 0px 15px;" value="Next">Verify</button>
 			</div>
 			<div class="input-group">
-				<input type="text" class="form-control" name="telegramUsername" id="telegramCode" placeholder="Codigo de Verificacion" value="" style="border-radius: 15px; padding: 6px 20px; z-index:1"/>
+				<input type="text" class="form-control" name="telegramCode" id="telegramCode" placeholder="Verification code" value="" style="border-radius: 15px; padding: 6px 20px; z-index:1"/>
 				<div id="tipusername2" class="tooltip " x-placement="top"><div class="arrow"></div><div class="tooltip-inner"><b></b></div></div>
 				<button btn="auth_telegram_code" type="button" name="next" class="btn btn-primary next"  style="padding: 0px 15px;" value="Next">Verify</button>
 			</div>
@@ -210,7 +216,7 @@
     <script type="text/javascript" src="./i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
     <script type="text/javascript" src="./jquery-i18next/js/jquery-i18next.min.js"></script-->
 	<script type="text/javascript" src="./scripts/sweetalert.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.1/dist/confetti.browser.min.js"></script>
+	<script src="./scripts/confetti.browser.min.js"></script>
     <script type="text/javascript" src="./scripts/TktComponent.js"></script>
 </body>
 </html>

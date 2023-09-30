@@ -254,8 +254,63 @@
 	top: 0;
 	left: 0;
 }
+#finish_overlay {
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: #00000082;
+	z-index: 1;
+	top: 0;
+	left: 0;
+}
 
 /***************BTN*************/
 .btn {
 	border-radius: 25px;
+}
+
+/********************Confetty****************/
+#multi_step_sign_up canvas {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+	z-index: 9999999999;
+}
+
+#showmodal {
+	background-color: white;
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	width: 478px;
+	padding: 17px;
+	border-radius: 5px;
+	text-align: center;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+	overflow: hidden;
+	display: none;
+	z-index: 99999;
+	color: #000
+}
+#showmodal h2 {
+	font-size: 35px;
+}
+#showmodal p {
+	font-size: 19px;
+	margin-top: 20px;
+}
+#modalbutton {
+	margin-top: 20px !important;
+	background: black;
+	width: 106px;
+	height: 32px;
+	margin: auto;
+	color: white;
+	border-radius: 20px;
+	padding: 8px;
 }
