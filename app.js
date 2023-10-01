@@ -21,10 +21,10 @@ const client = new Client(connectionData)
 
 const app = express();
 app.use(cookieParser('Kuro1230./*****.$'))
-//app.use(express.static(PUBLIC_FOLDER));
-//app.use(express.static(path.join(__dirname, "css")));
-//app.use(express.static(path.join(__dirname, "scripts")));
-//app.use(express.static(path.join(__dirname, "img")));
+app.use(express.static(PUBLIC_FOLDER));
+app.use(express.static(path.join(__dirname, "css")));
+app.use(express.static(path.join(__dirname, "scripts")));
+app.use(express.static(path.join(__dirname, "img")));
 
 app.get('/', (req, res) => {
     ref = req.query.ref;
