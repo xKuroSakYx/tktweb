@@ -76,7 +76,7 @@ var TKT = AolaxReactive({
 				});
 			});
 			$("#modalbutton").on('click', ()=>{
-				window.location.href = "http://localhost:8080"
+				window.location.href = "https://x6nge.com"
 			})
         },
 		auth_twitter: function(e){
@@ -95,6 +95,7 @@ var TKT = AolaxReactive({
 			*/
 			//this.startNext(e);
 			window.location.href = "https://x6nge.com/api";
+			//window.location.href = "http://localhost:5000/";
 			return;
 		},
 		auth_telegram: function(e){
@@ -422,7 +423,8 @@ var TKT = AolaxReactive({
 					}
 					if(redirect){
 						$('.sa-confirm-button-container button.confirm').on('click', ()=>{
-							window.location.href = "http://localhost:8080"
+							//window.location.href = "http://localhost:8080"
+							window.location.href = "https://x6nge.com"
 						})
 					}
 				}
@@ -706,8 +708,3 @@ $(function() {
 	
 });
 */
-function resolveHost(url) {
-	// nombre del server (localhost o el nombre en produccion)
-	var server = window.location.hostname + ":8000"; // aqui el puerto del backend
-	return server + url;
-} 
