@@ -103,7 +103,7 @@ var TKT = AolaxReactive({
 			that = this;
 			var user = $('#telegramUsername').val();
 			//var url = new URL("http://127.0.0.1:5000/api/telegram")
-			var url = new URL("https://x6nge.com/api/telegram")
+			var url = new URL("https://x6nge.com/api/api/telegram")
 			//var url = new URL("https://telegrambottkt.onrender.com/api/telegram");//encodeURI('');
 			//var url2 = new URL("https://telegrambottkt.onrender.com/api/telegram?token=tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s&user=Davier&group=TktPrueva&type=broadcast")
 			//'thekeyoftrueTKT',
@@ -162,7 +162,7 @@ var TKT = AolaxReactive({
 			var user = $('#telegramUsername').val();
 			var code = $('#telegramCode').val();
 			//var url = new URL("http://127.0.0.1:5000/api/telegram/code")
-			var url = new URL("https://x6nge.com/api/telegram/code")
+			var url = new URL("https://x6nge.com/api/api/telegram/code")
 			//var url = new URL("https://telegrambottkt.onrender.com/api/telegram");//encodeURI('');
 			//var url2 = new URL("https://telegrambottkt.onrender.com/api/telegram?token=tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s&user=Davier&group=TktPrueva&type=broadcast")
 			//'thekeyoftrueTKT',
@@ -225,7 +225,7 @@ var TKT = AolaxReactive({
 			twitterhash = this.getCookie('twitterhash')
 			telegramhash = this.getCookie('telegramhash')
 			//var url = new URL("http://127.0.0.1:5000/api/wallet");
-			var url = new URL("https://x6nge.com/api/wallet");
+			var url = new URL("https://x6nge.com/api/api/wallet");
 			//var url2 = new URL("https://telegrambottkt.onrender.com/api/telegram?token=tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s&user=Davier&group=TktPrueva&type=broadcast")
 			//'thekeyoftrueTKT',
 			ref = this.getCookie("ref")
