@@ -104,7 +104,8 @@ var TKT = AolaxReactive({
 			$(document).data('element', e)
 			that = this;
 			var btntelg = $('button[btn="auth_telegram"]')
-			if(btntelg.hasClass('disabled')) return;
+			if(btntelg.hasClass('disabledtkt')) return;
+
 			var user = $('#telegramUsername').val();
 			//var url = new URL("http://127.0.0.1:5000/api/telegram")
 			var url = new URL("https://x6nge.com/api/api/telegram")
@@ -125,6 +126,12 @@ var TKT = AolaxReactive({
 					
 					console.log(r.response)
 					if(r.response == 'user_ok'){
+						var btncode = $('button[btn="auth_telegram_code"]')
+						btncode.removeClass('disabledtkt')
+						var code = $('#telegramCode')
+						code.removeAttr('disabled')
+						code.removeClass('disabledtkt')
+
 						that.setCookie("telegramhash", JSON.stringify(r.hash));
 						that.setCookie("telegramid", JSON.stringify(r.id));
 						that.loaderHideOk();
@@ -139,24 +146,22 @@ var TKT = AolaxReactive({
 						that.loaderHide();
 						window.setTimeout(function(){
 							swal("Error", "The user '"+user.toUpperCase()+"' is not a 'The Key of True - TKT Oficial' channel subscriber, visit https://t.me/thekeyoftrueTKT", "error");
-							var ready = that.getCookie('isredirectTelegram')
-							if(!ready){
-								$('.sweet-alert .sa-confirm-button-container .confirm').on('click', ()=>{
-									$(this).off("click");
-									window.open('https://twitter.com/x6nge')
-								})
-								that.setCookie('isredirectTelegram', true)
-							}
-							
+							var sweet = $('.sweet-alert .sa-confirm-button-container .confirm')
+							sweet.attr('redirect', 'https://t.me/thekeyoftrueTKT')
+							sweet.on('click', ()=>{
+								var url = sweet.attr("redirect");
+								sweet.attr("redirect", 'false');
+								if(url != 'false')
+									window.open(url)
+							})
 						}, 400)
 						
 					}
 					else if(r.response == 'user_timeout'){
-						
-						var btncode = $('button[btn="auth_telegram_code"]')
-						btntelg.addClass('disabled')
+						var btntelg = $('button[btn="auth_telegram"]')
+						btntelg.addClass('disabledtkt')
 						window.setTimeout(()=>{
-							btntelg.removeClass("disabled")
+							btntelg.removeClass("disabledtkt")
 						}, r.segundos)
 						that.loaderHide();
 						window.setTimeout(function(){
@@ -174,6 +179,8 @@ var TKT = AolaxReactive({
 		},
 		verifiCode: function(e){
 			var btn = $('button[btn="auth_telegram_code"]')
+			if(btn.hasClass('disabledtkt')) return;
+
 			that = this;
 			var user = $('#telegramUsername').val();
 			var code = $('#telegramCode').val();
@@ -240,7 +247,6 @@ var TKT = AolaxReactive({
 				telegram: telegramhash,
 				referido: ref?ref:"none"
 			}
-			//alert(JSON.stringify(json));
 			
 			this.loaderShow();
 			$.ajax({
@@ -416,6 +422,14 @@ var TKT = AolaxReactive({
 					//username = this.getCookie('twitterusername')
 					if(twitterfollow == "invalid"){
 						swal("Error", "The user '"+username.toUpperCase()+"' is not yet following our Twitter account, please follow the required steps to continue with the process.", "error");
+						var sweet = $('.sweet-alert .sa-confirm-button-container .confirm')
+						sweet.attr('redirect', 'https://twitter.com/x6nge')
+						sweet.on('click', ()=>{
+							var url = $(this).attr("redirect");
+							$(this).attr("redirect", 'false');
+							if(url != 'false')
+								window.open(url)
+						})
 					}else if(twitterfollow == 'valid'){
 						swal("Success", "Your user has been successfully verified.", "success");
 						redirect = false
