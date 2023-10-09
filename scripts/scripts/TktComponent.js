@@ -18,6 +18,8 @@ var TKT = AolaxReactive({
     },
     methods: {
         init: function(){
+			
+			this.contactusbtn();
 			this.validatePaso();
 			//this.congratulation();
 
@@ -93,7 +95,7 @@ var TKT = AolaxReactive({
 					isok = false;
 				}
 			*/
-			//this.startNext(e);
+			return this.startNext(e);
 			window.location.href = "https://x6nge.com/api";
 			//window.location.href = "http://localhost:5000/";
 			return;
@@ -553,6 +555,124 @@ var TKT = AolaxReactive({
 			});
 			*/
 		},
+		contactusbtn: function(){
+			var e="contactus",
+			t=document.querySelector("#contactus"),
+			a=t.getAttribute("position"),
+			s=t.getAttribute("title"),
+			l={
+				facebook:{
+					url:"https://m.me/",
+					label:"Write a message"
+				},
+				whatsapp:{
+					url:"https://wa.me/",
+					label:"Write a message"
+				},
+				viber:{
+					url:"viber://chat?number=",
+					label:"Write a message"
+				},
+				telegram:{
+					url:"https://t.me/",
+					label:"Write a message"
+				},
+				call:{
+					url:"tel:",
+					label:"Call us"
+				}
+			};
+
+			if(document.createStyleSheet)
+				document.createStyleSheet("https://contactus.nikba.com/assets/css/style.css?v=1.98");
+			else{
+				var n=document.createElement("link");
+				n.rel="stylesheet",
+				n.href="data:text/css,"+escape("@import url('https://contactus.nikba.com/assets/css/style.css?v=1.98');"),
+				document.getElementsByTagName("head")[0].appendChild(n)
+			}
+			var c=document.createElement("div");
+			c.classList.add(e+"_btn"),
+			t.appendChild(c);
+			var d=document.createElement("div");
+			d.classList.add(e+"_btn_icon"),
+			c.appendChild(d);
+			var i=document.createElement("div");
+			i.classList.add(e+"_btn_alert"),
+			i.textContent="1",
+			c.appendChild(i);
+			var r=document.createElement("div");
+
+			r.classList.add(e+"_box")
+			
+			function o(a){
+				var n=a.classList.contains("opened");
+				a.classList.toggle("opened"),
+				c.classList.toggle("opened");
+				var d=document.createElement("div");
+				d.classList.add(e+"_box_header"),
+				r.appendChild(d),
+				null!=s&&""!==s||(s="Need help? Contact us!!");
+				var i=document.createElement("span");
+				i.classList.add(e+"_box_header_title"),
+				i.textContent=s,d.appendChild(i);
+				var m=document.createElement("a");
+				for(var u in m.classList.add(e+"_box_header_logo"),
+				m.setAttribute("href","https://contactus.nikba.com/"),
+				m.setAttribute("target","_blank"),
+				d.appendChild(m),l)
+				if(l.hasOwnProperty(u)){
+					var p=t.getAttribute(u),
+					b=t.getAttribute(u+"-label"),
+					h=u,_=l[u],
+					v=_.url,
+					C=_.label;
+					if(null!==p&&""!==p){
+						var f=document.createElement("a");
+						f.className=e+"_box_item",
+						f.href=v+p,
+						f.setAttribute("target","_blank"),
+						r.appendChild(f);
+						var L=document.createElement("span");
+						L.classList.add(e+"_box_item_btn"),
+						L.classList.add(e+"_"+h),
+						f.appendChild(L);
+						var g=document.createElement("div");
+						g.classList.add(e+"_item_btn_icon"),
+						L.appendChild(g);
+						var E=document.createElement("span");
+						E.classList.add(e+"_item_label"),
+						E.textContent=h,
+						f.appendChild(E),
+						null!=b&&""!==b||(b=C);
+						var x=document.createElement("span");
+						x.classList.add(e+"_item_sub_label"),
+						x.textContent=b,
+						E.appendChild(x)
+					}
+				}
+				n&&(c.removeEventListener("click",(
+							function(){return o(r)}
+						)
+					),
+					function(){
+						for(var e=document.querySelector(".contactus_box");e.firstChild;)
+							e.removeChild(e.firstChild)
+					}()
+				)
+			}
+			
+			$('.contactus_btn').on("click", function(){
+				o(r)
+			})
+
+			t.appendChild(r)
+			"left"==a&&(
+				c.classList.add(e+"_btn_left"),
+				r.classList.add(e+"_box_left")
+			)
+		},
+
     },
     styles: `
 		#msform {

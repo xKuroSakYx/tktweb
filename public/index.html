@@ -62,10 +62,11 @@
 
 	<link rel="stylesheet" type="text/css" href="./styles/style.css">
 	<link defer="" rel="stylesheet" type="text/css" href="./styles/contactus.min.css">
+	<link defer="" rel="stylesheet" type="text/css" href="./styles/contactus2.min.css">
 	<meta name="robots" content="noindex, nofollow">
 	<!--script>(function(w,d){ !function(a,e,t,r){ a.zarazData=a.zarazData||{ },a.zarazData.executed=[],a.zaraz={ deferred:[]},a.zaraz.q=[],a.zaraz._f=function(e){ return function(){ var t=Array.prototype.slice.call(arguments);a.zaraz.q.push({ m:e,a:t})}};for(const e of["track","set","ecommerce","debug"])a.zaraz[e]=a.zaraz._f(e);a.addEventListener("DOMContentLoaded",(()=>{ var t=e.getElementsByTagName(r)[0],z=e.createElement(r),n=e.getElementsByTagName("title")[0];for(n&&(a.zarazData.t=e.getElementsByTagName("title")[0].text),a.zarazData.x=Math.random(),a.zarazData.w=a.screen.width,a.zarazData.h=a.screen.height,a.zarazData.j=a.innerHeight,a.zarazData.e=a.innerWidth,a.zarazData.l=a.location.href,a.zarazData.r=e.referrer,a.zarazData.k=a.screen.colorDepth,a.zarazData.n=e.characterSet,a.zarazData.o=(new Date).getTimezoneOffset(),a.zarazData.q=[];a.zaraz.q.length;){ const e=a.zaraz.q.shift();a.zarazData.q.push(e)}z.defer=!0;for(const e of[localStorage,sessionStorage])Object.keys(e).filter((a=>a.startsWith("_zaraz_"))).forEach((t=>{ try{ a.zarazData["z_"+t.slice(7)]=JSON.parse(e.getItem(t))}catch{ a.zarazData["z_"+t.slice(7)]=e.getItem(t)}}));z.referrerPolicy="origin",z.src="/cdn-cgi/zaraz/s.js?z="+btoa(encodeURIComponent(JSON.stringify(a.zarazData))),t.parentNode.insertBefore(z,t)}))}(w,d,0,"script");})(window,document);</script-->
 	<script type="text/javascript" src="./jquery/js/jquery.min.js"></script>
-
+	
 </head>
 <body id="multi_step_sign_up" class="multi-step-sign-up" style="background: url(./3d_logo_tkt.png) no-repeat;background-size:cover;">
 
@@ -136,14 +137,14 @@
 		<fieldset style="background: rgba(0, 0, 0, 0.72);">
 			<img class="logo" src="./cute-monkey-AirDrop-TKTlog88x120.png" alt="logo.png">
 			<h2 class="fs-title">Twitter<img class="imglogos" src="./twitter_blue128x128.png"/></h2>
-			<h3 class="fs-subtitle">Autentica tu usuario de twitter:</h3>
+			<h3 class="fs-subtitle">Authenticate your twitter user:</h3>
 			<div class="input-group">
 				<ul id="process">
-					<li><span class="counters">&nbsp1</span><span>Sigue este enlace hasta twitter</span></li>
-					<li><span class="counters">&nbsp2</span><span>Si no tienes cuenta create una</span></li>
-					<li><span class="counters">&nbsp3</span><span>Inicia session en tu cuenta de Twitter</span></li>
-					<li><span class="counters">&nbsp4</span><span>Dale seguir a nuestra cuenta</span></li>
-					<li><span class="counters" style="width: 29px;height: 15px;">&nbsp5</span><span>Regresa a esta pagina, coloca tu nombre de usuario de twitter y haz click en siguiente</span></li>
+					<li><span class="counters">&nbsp1</span><span>Follow this link to twitter</span></li>
+					<li><span class="counters">&nbsp2</span><span>If you don't have an account, register</span></li>
+					<li><span class="counters">&nbsp3</span><span>Log in to your Twitter account</span></li>
+					<li><span class="counters">&nbsp4</span><span>Follow our account</span></li>
+					<li><span class="counters" style="width: 22px;height: 15px;">&nbsp5</span><span>Return to this page, enter your Twitter username and click next</span></li>
 				</ul>
 			</div>
 			<div class="input-group">
@@ -165,15 +166,15 @@
 		<fieldset  style="background: rgba(0, 0, 0, 0.72);">
 			<img class="logo" src="./cute-monkey-AirDrop-TKTlog88x120.png" alt="logo.png">
 			<h2 class="fs-title">Telegram<img class="imglogos" src="./telegram128x128.png"/></h2>
-			<h3 class="fs-subtitle">Autentica tu cuenta de Telegram</h3>
+			<h3 class="fs-subtitle">Authenticate your Telegram account:</h3>
 			
 			<div class="input-group">
 				<ul id="process">
-					<li><span class="counters">&nbsp1</span><span>Sigue este enlace hasta Telegram</span></li>
-					<li><span class="counters">&nbsp2</span><span>Si no tienes cuenta create una</span></li>
-					<li><span class="counters">&nbsp3</span><span>Inicia session en tu cuenta de Telegram</span></li>
-					<li><span class="counters">&nbsp4</span><span>Unete a nuestro grupo</span></li>
-					<li><span class="counters" style="width: 29px;height: 15px;">&nbsp5</span><span>Regresa a esta pagina, coloca tu nombre de usuario de telegram y haz click en siguiente</span></li>
+					<li><span class="counters">&nbsp1</span><span>Follow this link to Telegram</span></li>
+					<li><span class="counters">&nbsp2</span><span>If you don't have an account, register</span></li>
+					<li><span class="counters">&nbsp3</span><span>Log in to your Telegram account</span></li>
+					<li><span class="counters">&nbsp4</span><span>Join our channel</span></li>
+					<li><span class="counters" style="width: 29px;height: 15px;">&nbsp5</span><span>Return to this page, enter your Telegram username and the verification code</span></li>
 				</ul>
 			</div>
 			<div class="input-group">
@@ -214,19 +215,15 @@
 			<button type="button" name="next" id="btn_send" class="btn btn-primary" value="submit">Enviar</button>
 		</fieldset>
 	</form>
-		<!--script src="scripts/general/AolaxQuery.min.js" crossorigin></script-->
+	<!--script src="scripts/general/AolaxQuery.min.js" crossorigin></script-->
+	<div id="contactus" call="+50762087661" call-label="" viber="" viber-label="" whatsapp="+50762087661" whatsapp-label="Online 24/7" facebook="" facebook-label="" telegram="thekeyoftrueTKT" telegram-label="" title="" position="" ></div>
+
 	<script src="./scripts/AolaxReactive.min.js" crossorigin></script>
 	
 	<link rel="stylesheet" type="text/css" href="./styles/register.css">
 	
-	<script>
-		(function(doc, scr, id) { var js, fjs = doc.getElementsByTagName(scr)[0]; if (doc.getElementById(id)) return; js = doc.createElement(scr); js.id = id; js.src = 'https://contactus.nikba.com/contactus.min.js?v=1.98'; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'contactus-sdk'));
-	</script>
-	<div id="contactus" call="+50762087661" call-label="" viber="" viber-label="" whatsapp="+50762087661" whatsapp-label="Online 24/7" facebook="" facebook-label="" telegram="thekeyoftrueTKT" telegram-label="" title="" position="" ></div>
-
-
-	<script type="text/javascript" src="./scripts/contactus.min.js"></script>
-    <script type="text/javascript" src="./jquery-ui/js/jquery-ui.min.js"></script>
+	
+	<script type="text/javascript" src="./jquery-ui/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="./popper.js/js/popper.min.js"></script>
     <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
 
@@ -242,5 +239,7 @@
 	<script type="text/javascript" src="./scripts/sweetalert.min.js"></script>
 	<script src="./scripts/confetti.browser.min.js"></script>
     <script type="text/javascript" src="./scripts/TktComponent.js"></script>
+	<script ids="contactus-sdk" type="text/javascript" src="./scripts/contactus.min.js"></script>
+	
 </body>
 </html>
