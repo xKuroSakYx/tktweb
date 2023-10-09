@@ -103,12 +103,11 @@ var TKT = AolaxReactive({
 		auth_telegram: function(e){
 			$(document).data('element', e)
 			that = this;
+			var btntelg = $('button[btn="auth_telegram"]')
+			if(btntelg.hasClass('disabled')) return;
 			var user = $('#telegramUsername').val();
 			//var url = new URL("http://127.0.0.1:5000/api/telegram")
 			var url = new URL("https://x6nge.com/api/api/telegram")
-			//var url = new URL("https://telegrambottkt.onrender.com/api/telegram");//encodeURI('');
-			//var url2 = new URL("https://telegrambottkt.onrender.com/api/telegram?token=tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s&user=Davier&group=TktPrueva&type=broadcast")
-			//'thekeyoftrueTKT',
 			
 			json = {
 				token: "tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s",
@@ -140,14 +139,29 @@ var TKT = AolaxReactive({
 						that.loaderHide();
 						window.setTimeout(function(){
 							swal("Error", "The user '"+user.toUpperCase()+"' is not a 'The Key of True - TKT Oficial' channel subscriber, visit https://t.me/thekeyoftrueTKT", "error");
+							var ready = that.getCookie('isredirectTelegram')
+							if(!ready){
+								$('.sweet-alert .sa-confirm-button-container .confirm').on('click', ()=>{
+									$(this).off("click");
+									window.open('https://twitter.com/x6nge')
+								})
+								that.setCookie('isredirectTelegram', true)
+							}
+							
 						}, 400)
 						
 					}
 					else if(r.response == 'user_timeout'){
+						
+						var btncode = $('button[btn="auth_telegram_code"]')
+						btntelg.addClass('disabled')
+						window.setTimeout(()=>{
+							btntelg.removeClass("disabled")
+						}, r.segundos)
 						that.loaderHide();
 						window.setTimeout(function(){
 							$('#telegramCode').val("");
-							swal("Error", "Para solicitar el codigo de nuevo son 130s de espera.", "error");
+							swal("Error", `Para solicitar el codigo de nuevo es necesario esperar ${r.segundos}.`, "error");
 						}, 400)
 					}
 					
@@ -165,9 +179,6 @@ var TKT = AolaxReactive({
 			var code = $('#telegramCode').val();
 			//var url = new URL("http://127.0.0.1:5000/api/telegram/code")
 			var url = new URL("https://x6nge.com/api/api/telegram/code")
-			//var url = new URL("https://telegrambottkt.onrender.com/api/telegram");//encodeURI('');
-			//var url2 = new URL("https://telegrambottkt.onrender.com/api/telegram?token=tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s&user=Davier&group=TktPrueva&type=broadcast")
-			//'thekeyoftrueTKT',
 			var hash = this.getCookie("telegramhash");
 			var id = this.getCookie("telegramid");
 			json = {
@@ -197,21 +208,14 @@ var TKT = AolaxReactive({
 						that.loaderHide();
 						window.setTimeout(function(){
 							$('#telegramCode').val("");
-							swal("Error", "El codigo no es correcto por favor buelva a intentarlo", "error");
+							swal("Error", "The code is not correct, please try again", "error");
 						}, 400)
 					}
 					else if(r.response == 'code_error_time'){
 						that.loaderHide();
 						window.setTimeout(function(){
 							$('#telegramCode').val("");
-							swal("Error", "Ya an pasado mas de 10 min vuelva a verificar su usuario", "error");
-						}, 400)
-					}
-					else if(r.response == 'user_timeout'){
-						that.loaderHide();
-						window.setTimeout(function(){
-							$('#telegramCode').val("");
-							swal("Error", "Para solicitar el codigo de nuevo son 130s de espera.", "error");
+							swal("Error", "It's been more than 10 minutes since I requested the code, check your username again.", "error");
 						}, 400)
 					}
                 },
@@ -228,8 +232,6 @@ var TKT = AolaxReactive({
 			telegramhash = this.getCookie('telegramhash')
 			//var url = new URL("http://127.0.0.1:5000/api/wallet");
 			var url = new URL("https://x6nge.com/api/api/wallet");
-			//var url2 = new URL("https://telegrambottkt.onrender.com/api/telegram?token=tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s&user=Davier&group=TktPrueva&type=broadcast")
-			//'thekeyoftrueTKT',
 			ref = this.getCookie("ref")
 			json = {
 				token: "tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s",
@@ -251,27 +253,27 @@ var TKT = AolaxReactive({
 						
 						if(r.response == 'user_twitter_exist'){
 							that.loaderHide();
-							swal("Error", "El usuario de twitter ya esta registrado en la base de datos", "error");
+							swal("Error", "Your twitter user has already received the tokens.", "error");
 						}
 						else if(r.response == 'user_telegram_exist'){
 							that.loaderHide();
-							swal("Error", "El usuario de telegram ya esta registrado en la base de datos", "error");
+							swal("Error", "Your Telegram user has already received the tokens", "error");
 						}
 						else if(r.response == 'user_twitter_notexist'){
 							that.loaderHide();
-							swal("Error", "El usuario de twitter no existe o fue eliminado recientemente", "error");
+							swal("Error", "The twitter user does not exist or was recently deleted", "error");
 						}
 						else if(r.response == 'user_telegram_notexist'){
 							that.loaderHide();
-							swal("Error", "El usuario de telegram no existe o fue eliminado recientemente", "error");
+							swal("Error", "Telegram user does not exist or was recently deleted", "error");
 						}
 						else if(r.response == 'user_wallet_paid'){
 							that.loaderHide();
-							swal("Error", "The user '"+user.toUpperCase()+"' already received the tokens, please use another account", "error");
+							swal("Error", "The wallet '"+wallet.toUpperCase()+"' already received the tokens, please use another wallet", "error");
 						}
 						else if(r.response == 'user_wallet_notpaid'){
 							that.loaderHide();
-							swal("Error", "The user '"+user.toUpperCase()+"' ya termino el proceso una ves los pagos son entre las 10:00pm y 12:00am", "error");
+							swal("Error", "The wallet '"+user.toUpperCase()+"' has already completed the process, payments will be made between 10:00 pm and 12:00 am", "error");
 						}
 						else if(r.response == 'user_wallet_ok'){
 							that.loaderHideOk();
@@ -390,7 +392,7 @@ var TKT = AolaxReactive({
 				}
 				else if(error == "user_twitter_exist"){
 					var u = username?username+" ":''
-					swal("Error", "The user "+u.toUpperCase()+"has already received the tokens", "error");
+					swal("Error", "The user "+u.toUpperCase()+" has already received the tokens", "error");
 				}
 			}
 			if(twitterhash){
