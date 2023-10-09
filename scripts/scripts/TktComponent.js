@@ -582,7 +582,7 @@ var TKT = AolaxReactive({
 					label:"Call us"
 				}
 			};
-
+			/*
 			if(document.createStyleSheet)
 				document.createStyleSheet("https://contactus.nikba.com/assets/css/style.css?v=1.98");
 			else{
@@ -591,6 +591,7 @@ var TKT = AolaxReactive({
 				n.href="data:text/css,"+escape("@import url('https://contactus.nikba.com/assets/css/style.css?v=1.98');"),
 				document.getElementsByTagName("head")[0].appendChild(n)
 			}
+			*/
 			var c=document.createElement("div");
 			c.classList.add(e+"_btn"),
 			t.appendChild(c);
