@@ -9,6 +9,10 @@ var current_fs, next_fs, previous_fs; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
 
+var X6N = new URL(window.location.href).hostname == 'x6nge.com'
+var X6NGE = X6N?'https://x6nge.com/':'localhost:8080/'
+var API = X6N?'https://x6nge.com/api/api/':'localhost:5000/api/'
+
 var TKT = AolaxReactive({
     el: "#multi_step_sign_up",
     data: {
@@ -18,7 +22,7 @@ var TKT = AolaxReactive({
     },
     methods: {
         init: function(){
-			
+			if(X6N)$("body").css('overflow-y', 'hidden')
 			this.contactusbtn();
 			this.validatePaso();
 			//this.congratulation();
@@ -77,9 +81,6 @@ var TKT = AolaxReactive({
 					easing: 'easeInOutBack'
 				});
 			});
-			$("#modalbutton").on('click', ()=>{
-				window.location.href = "https://x6nge.com"
-			})
         },
 		auth_twitter: function(e){
 			//this.auth_metamask(e);
@@ -96,8 +97,7 @@ var TKT = AolaxReactive({
 				}
 			*/
 			//return this.startNext(e);
-			window.location.href = "https://x6nge.com/api";
-			//window.location.href = "http://localhost:5000/";
+			window.location.href = "http://localhost:5000/";
 			return;
 		},
 		auth_telegram: function(e){
@@ -107,8 +107,7 @@ var TKT = AolaxReactive({
 			if(btntelg.hasClass('disabledtkt')) return;
 
 			var user = $('#telegramUsername').val();
-			//var url = new URL("http://127.0.0.1:5000/api/telegram")
-			var url = new URL("https://x6nge.com/api/api/telegram")
+			var url = new URL(API+"telegram")
 			
 			json = {
 				token: "tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s",
@@ -184,8 +183,7 @@ var TKT = AolaxReactive({
 			that = this;
 			var user = $('#telegramUsername').val();
 			var code = $('#telegramCode').val();
-			//var url = new URL("http://127.0.0.1:5000/api/telegram/code")
-			var url = new URL("https://x6nge.com/api/api/telegram/code")
+			var url = new URL(API+"telegram/code")
 			var hash = this.getCookie("telegramhash");
 			var id = this.getCookie("telegramid");
 			json = {
@@ -237,8 +235,7 @@ var TKT = AolaxReactive({
 			var wallet = $('#wallet').val();
 			twitterhash = this.getCookie('twitterhash')
 			telegramhash = this.getCookie('telegramhash')
-			//var url = new URL("http://127.0.0.1:5000/api/wallet");
-			var url = new URL("https://x6nge.com/api/api/wallet");
+			var url = new URL(API+"wallet");
 			ref = this.getCookie("ref")
 			json = {
 				token: "tktk9wv7I8UU26FGGhtsSyMgZv8caqygNgPVMrdDw02IZlnRhbK3s",
@@ -302,7 +299,7 @@ var TKT = AolaxReactive({
 				let modal = $('#showmodal'),
 				spamlink = $('#modallink')
 	
-				spamlink.text(`https://x6nge.com/?ref=${link}`)
+				spamlink.text(X6NGE+`?ref=${link}`)
 				modal.show();
 			}, 500)
 			
@@ -441,8 +438,7 @@ var TKT = AolaxReactive({
 					}
 					if(redirect){
 						$('.sa-confirm-button-container button.confirm').on('click', ()=>{
-							//window.location.href = "http://localhost:8080"
-							window.location.href = "https://x6nge.com"
+							window.location.href = X6NGE
 						})
 					}
 				}
@@ -461,115 +457,16 @@ var TKT = AolaxReactive({
 			useWorker: true
 			});
 			myConfetti({
-			particleCount: 400,
-			spread: 150,
-			startVelocity: 50,
-			//angle: 0,
-			// any other options from the global
-			// confetti function
-			}).then(()=> container.removeChild(myCanvas) )
-			/*
-			$('.confetty-btton').on("click", () => {
-				var myCanvas = document.createElement('canvas');
-				myCanvas.width = 1300
-				myCanvas.height = 1300
-
-				let container = document.getElementById('multi_step_sign_up')
-				container.appendChild(myCanvas)
-	
-				var myConfetti = confetti.create(myCanvas, {
-				resize: true,
-				useWorker: true
-				});
-				myConfetti({
 				particleCount: 400,
 				spread: 150,
 				startVelocity: 50,
-				//angle: 0,
-				// any other options from the global
-				// confetti function
-				}).then(()=> container.removeChild(myCanvas) )
-	
-			});
-			*/
-
-			/*
-			$('.confetty-btton').on("click", () => {
-				let canvas = document.createElement('canvas');
-				canvas.width = 900
-				canvas.height = 900
-				let container = document.getElementById('multi_step_sign_up')
-				container.appendChild(canvas)
-				
-
-				let confetty_button = confetti.create(canvas, {
-					resize: true,
-					useWorker: true
-				});
-				confetty_button({
-					particleCount: 200,
-					spread: 200,
-					startVelocity: 15
-				})//.then(()=> container.removeChild(canvas) )
-			})
-			*/
+			}).then(()=> container.removeChild(myCanvas) )
+			
 			
 			//https://codepen.io/Danivalldo/embed/BawRZvP?default-tab=result&theme-id=dark
-			
-			/*
-			const confettiBtn = document.querySelector(".canvas-confetti-btn");
-			let exploding = false;
-
-			const defaults = {
-			particleCount: 500,
-			spread: 80,
-			angle: 50,
-			};
-
-			const fire = (particleRatio, opts) => {
-			confetti(
-				Object.assign({}, defaults, opts, {
-				particleCount: Math.floor(defaults.particleCount * particleRatio),
-				})
-			);
-			};
-
-			confettiBtn.addEventListener("click", () => {
-			if (exploding) {
-				return;
-			}
-			exploding = true;
-			confettiBtn.classList.add("animate__rubberBand");
-			window.setTimeout(() => {
-				fire(0.25, {
-				spread: 26,
-				startVelocity: 55,
-				});
-				fire(0.2, {
-				spread: 60,
-				});
-				fire(0.35, {
-				spread: 100,
-				decay: 0.91,
-				scalar: 0.8,
-				});
-				fire(0.1, {
-				spread: 120,
-				startVelocity: 25,
-				decay: 0.92,
-				scalar: 1.2,
-				});
-				fire(0.1, {
-				spread: 120,
-				startVelocity: 45,
-				});
-				window.setTimeout(() => {
-				confettiBtn.classList.remove("animate__rubberBand");
-				exploding = false;
-				}, 300);
-			}, 300);
-			});
-			*/
+			$("#modalbutton").on('click', ()=>{
+				window.location.href = X6NGE
+			})
 		},
 		contactusbtn: function(){
 			var e="contactus",
