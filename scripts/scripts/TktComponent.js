@@ -95,7 +95,7 @@ var TKT = AolaxReactive({
 					isok = false;
 				}
 			*/
-			return this.startNext(e);
+			//return this.startNext(e);
 			window.location.href = "https://x6nge.com/api";
 			//window.location.href = "http://localhost:5000/";
 			return;
