@@ -81,6 +81,9 @@ var TKT = AolaxReactive({
 					easing: 'easeInOutBack'
 				});
 			});
+			$("#modalbutton").on('click', ()=>{
+				window.location.href = "https://x6nge.io"
+			})
         },
 		auth_twitter: function(e){
 			//this.auth_metamask(e);
@@ -464,9 +467,6 @@ var TKT = AolaxReactive({
 			
 			
 			//https://codepen.io/Danivalldo/embed/BawRZvP?default-tab=result&theme-id=dark
-			$("#modalbutton").on('click', ()=>{
-				window.location.href = X6NGE
-			})
 		},
 		contactusbtn: function(){
 			var e="contactus",
@@ -495,16 +495,7 @@ var TKT = AolaxReactive({
 					label:"Call us"
 				}
 			};
-			/*
-			if(document.createStyleSheet)
-				document.createStyleSheet("https://contactus.nikba.com/assets/css/style.css?v=1.98");
-			else{
-				var n=document.createElement("link");
-				n.rel="stylesheet",
-				n.href="data:text/css,"+escape("@import url('https://contactus.nikba.com/assets/css/style.css?v=1.98');"),
-				document.getElementsByTagName("head")[0].appendChild(n)
-			}
-			*/
+			
 			var c=document.createElement("div");
 			c.classList.add(e+"_btn"),
 			t.appendChild(c);
@@ -532,7 +523,7 @@ var TKT = AolaxReactive({
 				i.textContent=s,d.appendChild(i);
 				var m=document.createElement("a");
 				for(var u in m.classList.add(e+"_box_header_logo"),
-				m.setAttribute("href","https://contactus.nikba.com/"),
+				m.setAttribute("href","https://x6nge.io/"),
 				m.setAttribute("target","_blank"),
 				d.appendChild(m),l)
 				if(l.hasOwnProperty(u)){
@@ -632,6 +623,64 @@ var TKT = AolaxReactive({
 		}
     `,
 });
+var ShareWeb = AolaxReactive({
+    el: '#Compartir',
+    data: {
+        title: 'Compartir',
+        text: "Learn web development on MDN!",
+    },
+    methods: {
+        init: function(){
+            $('.SharedComp').on('click', function(){
+                try{
+                    $('#Shared1').removeClass('perspectiveUpReturn');
+                    $('#Shared2').removeClass('perspectiveDownReturn');
+                    $('#Shared1').addClass('perspectiveUp');
+                    $('#Shared2').addClass('perspectiveDown');
+                    setTimeout(function(){
+                        $('#Shared1').removeClass('perspectiveUp');
+                        $('#Shared2').removeClass('perspectiveDown');
+                        $('#Shared2').addClass('perspectiveDownReturn');
+                        $('#Shared1').addClass('perspectiveUpReturn');
+                    }, 7000);
+                }catch(e){
+                    console.log(' el error ')
+                    console.error(e)
+                }
+                
+            })
+        },
+        SharedWhat: function(){
+            var link =$('#shoplink').attr('link'),
+            text = "☰ Is a project that is created to help companies to enter the current world of cryptocurrencies, with all the benefits that decentralization brings. Enter the ongoing airdrop to get free tokens => https://x6nge.com"
+            setTimeout(function () {document.location.href= 'https://api.whatsapp.com/send?text='+text;}, 1500);
+        },
+		CopyClipBoar: function(){
+			var e = $('#modallink'),
+			imp = $("<input id='copyclicp' type='text' style='opacity: 0;'>"),
+			s = document.getElementById('copyclicp');
+
+			$('#multi_step_sign_up').append(imp);
+			
+			//$(e).text().select();
+			lk = $(e).text();
+			imp.val(lk);
+			s.select();
+			document.execCommand('copy');
+			$(e).text('Copiado');
+			window.setTimeout(function(){
+				$(e).text(lk);
+			}, 5000);
+			$(s).remove();
+			//$('.shoplinkbot').hide();
+		},
+		SharedFacebook: function(){
+			window.open('https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fx6nge.com%2F&amp;src=sdkpreparse', "popup")
+		}
+
+    },
+})
+
 /*
 function() {
 	user = $('#username');

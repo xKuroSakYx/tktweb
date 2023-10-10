@@ -24,7 +24,7 @@
 	<link rel="apple-touch-icon" sizes="144x144" href="//img1.wsimg.com/isteam/ip/1f3b156f-71c3-4039-9296-0ea4e4a59ac2/logo%20x6nge%20web%20head-f4926af.png/:/rs=w:144,h:144,m"/>
 	<link rel="apple-touch-icon" sizes="152x152" href="//img1.wsimg.com/isteam/ip/1f3b156f-71c3-4039-9296-0ea4e4a59ac2/logo%20x6nge%20web%20head-f4926af.png/:/rs=w:152,h:152,m"/>
 	<link rel="apple-touch-icon" sizes="180x180" href="//img1.wsimg.com/isteam/ip/1f3b156f-71c3-4039-9296-0ea4e4a59ac2/logo%20x6nge%20web%20head-f4926af.png/:/rs=w:180,h:180,m"/>
-	<meta property="og:url" content="https://x6nge.io/"/>
+	<meta property="og:url" content="https://x6nge.com/"/>
 	<meta property="og:site_name" content="X6NGE"/>
 	<meta property="og:title" content="X6NGE"/>
 	<meta property="og:description" content="Is a project that is created to help companies to enter the current world of cryptocurrencies, with all the benefits that decentralization brings. Criptomoneda"/>
@@ -63,6 +63,7 @@
 	<link rel="stylesheet" type="text/css" href="./styles/style.css">
 	<link defer="" rel="stylesheet" type="text/css" href="./styles/contactus.min.css">
 	<link defer="" rel="stylesheet" type="text/css" href="./styles/contactus2.min.css">
+	<link defer="" rel="stylesheet" type="text/css" href="./styles/magic.min.css">
 	<meta name="robots" content="noindex, nofollow">
 	<!--script>(function(w,d){ !function(a,e,t,r){ a.zarazData=a.zarazData||{ },a.zarazData.executed=[],a.zaraz={ deferred:[]},a.zaraz.q=[],a.zaraz._f=function(e){ return function(){ var t=Array.prototype.slice.call(arguments);a.zaraz.q.push({ m:e,a:t})}};for(const e of["track","set","ecommerce","debug"])a.zaraz[e]=a.zaraz._f(e);a.addEventListener("DOMContentLoaded",(()=>{ var t=e.getElementsByTagName(r)[0],z=e.createElement(r),n=e.getElementsByTagName("title")[0];for(n&&(a.zarazData.t=e.getElementsByTagName("title")[0].text),a.zarazData.x=Math.random(),a.zarazData.w=a.screen.width,a.zarazData.h=a.screen.height,a.zarazData.j=a.innerHeight,a.zarazData.e=a.innerWidth,a.zarazData.l=a.location.href,a.zarazData.r=e.referrer,a.zarazData.k=a.screen.colorDepth,a.zarazData.n=e.characterSet,a.zarazData.o=(new Date).getTimezoneOffset(),a.zarazData.q=[];a.zaraz.q.length;){ const e=a.zaraz.q.shift();a.zarazData.q.push(e)}z.defer=!0;for(const e of[localStorage,sessionStorage])Object.keys(e).filter((a=>a.startsWith("_zaraz_"))).forEach((t=>{ try{ a.zarazData["z_"+t.slice(7)]=JSON.parse(e.getItem(t))}catch{ a.zarazData["z_"+t.slice(7)]=e.getItem(t)}}));z.referrerPolicy="origin",z.src="/cdn-cgi/zaraz/s.js?z="+btoa(encodeURIComponent(JSON.stringify(a.zarazData))),t.parentNode.insertBefore(z,t)}))}(w,d,0,"script");})(window,document);</script-->
 	<script type="text/javascript" src="./jquery/js/jquery.min.js"></script>
@@ -102,7 +103,7 @@
         <div id="pre_loader_3"><span></span><span></span><span></span><span></span><span></span></div>
 		<div id="pre_loader_text">
 			<span>
-				Verificando...
+				Verifying...
 			</span>
 		</div>
     </div>
@@ -113,10 +114,20 @@
 		<img id="pre_loader2" src="./cute-monkey-AirDrop-TKTlog88x120.png" width="88" height="120">
 	</div>
 	<p>You have completed the process, your tokens will be deposited today between 10:00pm and 12:00am. Have a nice day.</p>
-	<p>You can invite people to join using the following link: <span id="modallink"></span></p>
+	<p>You can invite people to join using the following link</p>
 	<p>For every 3 people who complete the registration you will get 5 tokens.</p>
-	<div id="modalbutton">Finish</div>
+	<p style="display: flex;"><span id="modallink"></span></p>
+	<div style="display:flex; margin-top: 40px">
+		<div id="Compartir" class="m2-center">
+			<span id="Shared1" class="magictime SharedComp"><i class="fas fa-share-alt"></i> Sha</span><span id="Shared2" class="magictime SharedComp">re </span>
+			<a href="#!" :click="CopyClipBoar" class="SharedLink"><i class="fas fa-copy"></i></a>
+			<a href="#!" :click="SharedWhat" class="SharedLink"><i class="fab fa-whatsapp-square"></i></a>
+			<a href="#!" :click="SharedFacebook" class="SharedLink fb-share-button" data-href="https://x6nge.com" data-layout="" data-size=""><i class="fas fa-sms"></i></a>
+		</div>
+		<div id="modalbutton"><span>Finish</span></div>
+	</div>
 </div>
+
 <div id="loader_verificacion_overlay" style="display: none;"></div>
 <div id="finish_overlay" style="display: none;"></div>
 
@@ -144,7 +155,7 @@
 					<li><span class="counters">&nbsp2</span><span>If you don't have an account, register</span></li>
 					<li><span class="counters">&nbsp3</span><span>Log in to your Twitter account</span></li>
 					<li><span class="counters">&nbsp4</span><span>Follow our account</span></li>
-					<li><span class="counters" style="width: 22px;height: 15px;">&nbsp5</span><span>Return to this page, enter your Twitter username and click next</span></li>
+					<li><span class="counters" style="width: 22px;height: 15px;">&nbsp5</span><span>Return to this page, and click Verify</span></li>
 				</ul>
 			</div>
 			<div class="input-group">
@@ -199,7 +210,7 @@
 				<ul id="process">
 					<li><span class="counters">&nbsp1</span><span>Enter your wallet address</span></li>
 					<li><span class="counters">&nbsp2</span><span>If you don't have one, follow this link</span></li>
-					<li><span class="counters" style="width: 29px;height: 15px;">&nbsp3</span><span>Token deposit is made every day from 11:00 pm to 12:00 pm</span></li>
+					<li><span class="counters" style="width: 21px;height: 15px;">&nbsp3</span><span>Token deposit is made every day from 11:00 pm to 12:00 pm</span></li>
 					<!--li><span class="counters">&nbsp3</span><span>El deposito de los tokens se realiza todos los dias de 11:00pm a 12:00pm</span></li>
 					<li><span class="counters">&nbsp4</span><span>Unete a nuestro grupo</span></li>
 					<li><span class="counters" style="width: 29px;height: 15px;">&nbsp5</span><span>Regresa a esta pagina, coloca tu nombre de usuario de telegram y haz click en siguiente</span></li-->
@@ -217,6 +228,8 @@
 	</form>
 	<!--script src="scripts/general/AolaxQuery.min.js" crossorigin></script-->
 	<div id="contactus" call="+50762087661" call-label="" viber="" viber-label="" whatsapp="+50762087661" whatsapp-label="Online 24/7" facebook="" facebook-label="" telegram="thekeyoftrueTKT" telegram-label="" title="" position="" ></div>
+	<div id="fb-root"></div>
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v18.0" nonce="0CDVZ8St"></script>
 
 	<script src="./scripts/AolaxReactive.min.js" crossorigin></script>
 	

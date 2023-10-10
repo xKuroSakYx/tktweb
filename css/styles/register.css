@@ -285,13 +285,12 @@
 	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	width: 478px;
 	padding: 17px;
-	border-radius: 5px;
+	border-radius: 50px;
 	text-align: center;
 	position: absolute;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	pointer-events: none;
 	overflow: hidden;
 	display: none;
 	z-index: 99999;
@@ -299,20 +298,36 @@
 }
 #showmodal h2 {
 	font-size: 35px;
+	color: #777373;
+	height: 38px;
 }
 #showmodal p {
 	font-size: 19px;
-	margin-top: 20px;
+	margin-top: 16px;
+	background-color: #000000d9;
+	text-align: left;
+	word-wrap: break-word;
+	padding: 5px 28px;
+	color: #b5afaf;
+	border-radius: 30px;
+	box-shadow: 0px 10px 30px 0px rgba(11, 10, 10, 0.78);
 }
 #modalbutton {
-	margin-top: 20px !important;
 	background: black;
-	width: 106px;
-	height: 32px;
+	width: 129px;
+	height: 40px;
 	margin: auto;
 	color: white;
 	border-radius: 20px;
 	padding: 8px;
+	display: flex;
+	align-content: center;
+	align-items: center;
+	font-size: 16px;
+	cursor: pointer;
+}
+#modalbutton span {
+	margin: auto;
 }
 .disabledtkt {
 	color: #FFF;
@@ -321,4 +336,86 @@
 	cursor: not-allowed;
 	background-image: none;
 	opacity: 0.5;
+}
+#Compartir {
+	background: #fff;
+	border-radius: 24px;
+	border: 2px solid #000000;
+	position: relative;
+	display: flex;
+	width: 129px;
+	height: 40px;
+	cursor: pointer;
+}
+#Shared1, #Shared2 {
+	position:absolute;
+	background:white;
+	height: 36px;
+	display: flex;
+	align-content: center;
+	align-items: center;
+	font-size: 16px;
+}
+#Shared1 {
+	left: 0;
+	padding-left: 15px;
+	border-radius: 24px 0 0 24px;
+}
+#Shared2 {
+	right: 0;
+	padding-right: 22px;
+	border-radius: 0 24px 24px 0;
+	width: 55px;
+}
+.SharedLink {
+	color: #fff;
+	margin-top: -4px;
+	padding: 0 7.5px;
+	font-size: 30px;
+}
+.magictime {
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+.m2-center {
+	margin: auto;
+}
+#modallink {
+	display: flex;
+	align-content: center;
+	align-items: center;
+	text-align: center;
+	margin: 0 auto;
+	word-break: break-word;
+}
+.fa-share-alt {
+	background-image: url(../share-alt.svg);
+	width: 14px;
+	height: 16px;
+	display: block;
+	margin: 1px 2px;
+	margin-left: 11px;
+}
+.fa-copy {
+	background-image: url(../copy.svg);
+	width: 24px;
+	height: 27px;
+	display: block;
+	margin-top: 10px;
+}
+.fa-whatsapp-square {
+	background-image: url(../whatsapp-square.svg);
+	width: 24px;
+	height: 27px;
+	display: block;
+	margin-top: 10px;
+}
+.fa-sms {
+	background-image: url(../facebook-square.svg);
+	width: 23px;
+	height: 27px;
+	display: block;
+	margin-top: 10px;
 }
