@@ -9,8 +9,8 @@ var current_fs, next_fs, previous_fs; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
 
-var X6N = new URL(window.location.href).hostname == 'x6nge.com'
-var X6NGE = X6N?'https://x6nge.com/':'localhost:8080/'
+var X6N = new URL(window.location.href).hostname
+var X6NGE = X6N == 'localhost'?'localhost:8080/': X6N == "184.168.23.29" ? 'http://184.168.23.29/': 'https://x6nge.com/'
 var API = X6N?'https://x6nge.com/api/api/':'localhost:5000/api/'
 
 var TKT = AolaxReactive({
