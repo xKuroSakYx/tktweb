@@ -147,7 +147,7 @@ var TKT = AolaxReactive({
 					else if(r.response == 'user_not_registry'){
 						that.loaderHide();
 						window.setTimeout(function(){
-							swal("Error", "The user '"+user.toUpperCase()+"' is not a 'The Key of True - TKT Oficial' channel subscriber, visit https://t.me/thekeyoftrueTKT", "error");
+							swal("Error", "The user '"+user.toUpperCase()+"' is not a 'The Key of True - TKT Oficial' channel subscriber, visit https://t.me/thekeyoftrueTKT, if yow are new press start, otherwise type /airdrop to register.", "error");
 							var sweet = $('.sweet-alert .sa-confirm-button-container .confirm')
 							sweet.attr('redirect', 'https://t.me/thekeyoftrueTKT')
 							sweet.on('click', ()=>{
