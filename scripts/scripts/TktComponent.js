@@ -441,7 +441,7 @@ var TKT = AolaxReactive({
 					}
 					if(redirect){
 						$('.sa-confirm-button-container button.confirm').on('click', ()=>{
-							window.location.href = X6NGE
+							window.location.href = 'https://x6nge.com/'
 						})
 					}
 				}
