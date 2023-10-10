@@ -100,7 +100,7 @@ var TKT = AolaxReactive({
 				}
 			*/
 			//return this.startNext(e);
-			window.location.href = "https://x6nge.com/api/api";
+			window.location.href = "https://x6nge.com/api";
 			return;
 		},
 		auth_telegram: function(e){
