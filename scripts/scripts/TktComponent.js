@@ -651,17 +651,17 @@ var ShareWeb = AolaxReactive({
             })
         },
         SharedWhat: function(){
-            var link =$('#shoplink').attr('link'),
-            text = "☰ Is a project that is created to help companies to enter the current world of cryptocurrencies, with all the benefits that decentralization brings. Enter the ongoing airdrop to get free tokens => https://x6nge.com"
+			var reflink = $('#modallink').text()
+            text = "☰ Is a project that is created to help companies to enter the current world of cryptocurrencies, with all the benefits that decentralization brings. Enter the ongoing airdrop to get free tokens => "+reflink.trim()
             setTimeout(function () {document.location.href= 'https://api.whatsapp.com/send?text='+text;}, 1500);
         },
 		CopyClipBoar: function(){
 			var e = $('#modallink'),
-			imp = $("<input id='copyclicp' type='text' style='opacity: 0;'>"),
-			s = document.getElementById('copyclicp');
+			imp = $("<input id='copyclicp' type='text' style='opacity: 0;'>")
+			
 
 			$('#multi_step_sign_up').append(imp);
-			
+			var s = document.getElementById('copyclicp');
 			//$(e).text().select();
 			lk = $(e).text();
 			imp.val(lk);
