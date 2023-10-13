@@ -10,8 +10,8 @@ var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
 
 var X6N = new URL(window.location.href).hostname
-var X6NGE = X6N == 'localhost'?'localhost:8080/': X6N == "184.168.23.29" ? 'http://184.168.23.29/': 'https://x6nge.com/'
-var API = X6N == 'localhost'?'localhost:5000/api/': X6N == "184.168.23.29"? 'http://184.168.23.29/api/api': 'https://x6nge.com/api/api/'
+var X6NGE = X6N == 'localhost'?'localhost:8080/': X6N == "184.168.23.29" ? 'http://184.168.23.29/': 'https://airdrop.x6nge.io/'
+var API = X6N == 'localhost'?'localhost:5000/api/': X6N == "184.168.23.29"? 'https://airdrop.x6nge.io/': 'https://airdrop.x6nge.io/api/api/'
 
 var TKT = AolaxReactive({
     el: "#multi_step_sign_up",
@@ -100,7 +100,7 @@ var TKT = AolaxReactive({
 				}
 			*/
 			//return this.startNext(e);
-			window.location.href = "https://x6nge.com/api";
+			window.location.href = "https://airdrop.x6nge.io/api";
 			return;
 		},
 		auth_telegram: function(e){
@@ -441,7 +441,7 @@ var TKT = AolaxReactive({
 					}
 					if(redirect){
 						$('.sa-confirm-button-container button.confirm').on('click', ()=>{
-							window.location.href = 'https://x6nge.com/'
+							window.location.href = 'https://airdrop.x6nge.io/'
 						})
 					}
 				}
@@ -675,7 +675,7 @@ var ShareWeb = AolaxReactive({
 			//$('.shoplinkbot').hide();
 		},
 		SharedFacebook: function(){
-			window.open('https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fx6nge.com%2F&amp;src=sdkpreparse', "popup")
+			window.open('https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fairdrop.x6nge.io%2F&amp;src=sdkpreparse', "popup")
 		}
 
     },
